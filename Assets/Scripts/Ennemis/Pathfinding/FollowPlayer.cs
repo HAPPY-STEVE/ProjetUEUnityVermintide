@@ -21,6 +21,10 @@ public class FollowPlayer : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
+            if(target == null)
+            {
+                target = FindObjectOfType<CharacterController>().transform;
+            }
         agent.SetDestination(target.position);
     }
 
