@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.65080994, g: 0.666729, b: 0.7075472, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.05
@@ -527,6 +527,7 @@ GameObject:
   - component: {fileID: 694731247}
   - component: {fileID: 694731246}
   - component: {fileID: 694731249}
+  - component: {fileID: 694731250}
   m_Layer: 0
   m_Name: CIBLE
   m_TagString: Untagged
@@ -631,6 +632,26 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &694731250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694731244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e21f6a90670434b45bae2f6ae5847c41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arme: {fileID: 11400000, guid: 963ea886e08d764458090c37e3ad344c, type: 2}
+  pv: 0
+  degats: 0
+  defense: 0
+  magie: 0
+  vitesseAttaque: 0
+  vitesseMouvement: 0
+  regenPV: 0
 --- !u!1 &729698247
 GameObject:
   m_ObjectHideFlags: 0
