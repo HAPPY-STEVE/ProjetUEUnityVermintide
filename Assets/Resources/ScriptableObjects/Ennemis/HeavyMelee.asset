@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff24d18a3cc98a74da8e2edc7e09da40, type: 3}
+  m_Name: HeavyMelee
+  m_EditorClassIdentifier: 
+  nom: 
+  description: 
+  porteeAttaque: 0
+  pv: 0
+  degatAttaque: 0
+  marcheAnimation: {fileID: 0}
+  attaqueAnimation: {fileID: 0}
+  mortAnimation: {fileID: 0}
+  ennemiPrefab: {fileID: 0}
