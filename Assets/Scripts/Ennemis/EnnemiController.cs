@@ -84,7 +84,15 @@ namespace Ennemis
         public void OnMort()
         {
             animator.SetTrigger("Death");
+            StartCoroutine(despawn());
         }
+
+        IEnumerator despawn()
+        {
+            yield return new WaitForSeconds(2f);
+            Destroy(gameObject);
+        }
+
 
         public void OnHit(float damage)
         {
