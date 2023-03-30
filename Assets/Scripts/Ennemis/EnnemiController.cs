@@ -20,7 +20,7 @@ namespace Ennemis
         //Determine si l'ennemi est melee ou ranged, et sa distance minimale pour attaquer
         [SerializeField, Range(0, 25f)]
         private float porteeAttaque;
-        private float pv;
+        public float pv;
         [SerializeField, Range(0, 100f)]
         private float degatAttaque;
         [Header("Animations")]
@@ -37,6 +37,7 @@ namespace Ennemis
         void Start()
         {
             Init();
+            Debug.Log(pv);
             personnage = FindObjectOfType<CharacterController>();
             animator = GetComponent<Animator>();
         }
@@ -63,7 +64,6 @@ namespace Ennemis
             mortAnimation = referenceSO.mortAnimation;
             ennemiPrefab = referenceSO.ennemiPrefab;
             onMort.AddListener(() => OnMort());
-            onHit.AddListener(() => OnHit());
         }
         public void checkDistancePersonnage()
         {
@@ -83,12 +83,15 @@ namespace Ennemis
 
         public void OnMort()
         {
-
+            animator.SetTrigger("Death");
         }
 
-        public void OnHit()
+        public void OnHit(float damage)
         {
-
+            animator.SetTrigger("Hit");
+            onHit?.Invoke();
+            pv = pv - damage;
+            Debug.Log(pv);
         }
 
     }

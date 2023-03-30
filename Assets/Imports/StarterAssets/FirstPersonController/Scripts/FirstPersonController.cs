@@ -139,15 +139,15 @@ namespace StarterAssets
 
 			if (_input.interact)
 			{
-
-				Debug.Log("Interact");
 				RaycastHit hitInfo = new RaycastHit();
 			bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), 0)), out hitInfo, interactRange);
 			if (hit)
-			{
-				GameObject hitObject = hitInfo.transform.gameObject;
-                    if (hitObject.GetComponent<IInteractable>() != null)
+				{
+					GameObject hitObject = hitInfo.transform.gameObject;
+					Debug.Log(hitObject);
+					if (hitObject.GetComponent<IInteractable>() != null)
 					{
+						Debug.Log("interactable");
 						hitObject.GetComponent<IInteractable>().Interact();
 					}
 				}
@@ -158,7 +158,7 @@ namespace StarterAssets
 		{
             if (_input.attack)
             {
-				Debug.Log("attaque");
+				GetComponent<PersonnageController>().attaque();
             }
 		}
 		#endregion
@@ -197,7 +197,7 @@ namespace StarterAssets
 		{
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-
+			targetSpeed = targetSpeed * GetComponent<PersonnageController>().vitesseMouvement;
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
 			// note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude

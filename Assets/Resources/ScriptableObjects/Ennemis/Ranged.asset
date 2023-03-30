@@ -15,7 +15,9 @@ MonoBehaviour:
   nom: 
   description: 
   porteeAttaque: 25
+  pv: 75
   degatAttaque: 5
   marcheAnimation: {fileID: 0}
   attaqueAnimation: {fileID: 0}
+  mortAnimation: {fileID: 0}
   ennemiPrefab: {fileID: 0}

@@ -15,7 +15,7 @@ MonoBehaviour:
   nom: 
   description: 
   porteeAttaque: 0
-  pv: 0
+  pv: 200
   degatAttaque: 0
   marcheAnimation: {fileID: 0}
   attaqueAnimation: {fileID: 0}
