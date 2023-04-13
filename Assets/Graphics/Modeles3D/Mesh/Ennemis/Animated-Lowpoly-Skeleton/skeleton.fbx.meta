@@ -1,11 +1,26 @@
 fileFormatVersion: 2
-guid: b3003db781c9bd24c843c3279111fc8b
+guid: db1a65f16a2a1a04f9fb9b0d0d00c45a
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
-      74: -623603649343465320
-    second: Scene
+      74: 7592985955492970875
+    second: skeleton-skeleton|attack
+  - first:
+      74: 3455293764771774039
+    second: skeleton-skeleton|idle
+  - first:
+      74: -7850262884199127126
+    second: skeleton-skeleton|pose
+  - first:
+      74: -3563580171973691075
+    second: skeleton-skeleton|run
+  - first:
+      74: 8642759567063915290
+    second: skeleton-skeleton|spawn
+  - first:
+      74: -4858432787345055052
+    second: skeleton-skeleton|taunt
   externalObjects: {}
   materials:
     materialImportMode: 2
