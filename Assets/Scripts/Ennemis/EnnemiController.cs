@@ -1,6 +1,8 @@
+using Personnage;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 namespace Ennemis
@@ -13,7 +15,7 @@ namespace Ennemis
     public class EnnemiController : MonoBehaviour
     {
         public EnnemiSO referenceSO;
-        private CharacterController personnage;
+        private PersonnageController personnage;
         private string nom;
         private string description;
         [Header("Attaque")]
@@ -28,24 +30,31 @@ namespace Ennemis
         private Animation attaqueAnimation;
         private Animation mortAnimation;
         private Animator animator;
+        [Header("Collider")]
+        public Collider colliderHit;
         [Header("Prefab")]
         private GameObject ennemiPrefab;
         [Header("Events")]
         public UnityEvent onMort;
         public UnityEvent onHit;
+        private NavMeshAgent nva; 
 
         void Start()
         {
             Init();
-            Debug.Log(pv);
-            personnage = FindObjectOfType<CharacterController>();
+            personnage = FindObjectOfType<PersonnageController>();
             animator = GetComponent<Animator>();
+            nva = GetComponent<NavMeshAgent>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if(pv <= 0)
+            animator.SetFloat("Velocity", nva.speed);
+
+            //Check s'il est possible d'attaquer 
+            checkDistancePersonnage();
+            if (pv <= 0)
             {
                 onMort?.Invoke();
             }
@@ -69,37 +78,52 @@ namespace Ennemis
         {
 
             float dist = Vector3.Distance(personnage.transform.position, transform.position);
-            if(dist <= porteeAttaque)
+            if (dist <= porteeAttaque)
             {
+                nva.speed = Mathf.Lerp(nva.speed, 0, 0.1f);
                 StartCoroutine(Attaque());            
             }
         }
 
         IEnumerator Attaque()
         {
-            animator.SetTrigger("Attaque");
-            yield return null;
+            animator.SetTrigger("Attack");
+            //On attend la fin de l'anim
+            yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+            //On remet la velocite a l'ennemi 
+            nva.speed = Mathf.Lerp(0, 15, 0.1f);
         }
 
         public void OnMort()
         {
+            nva.speed = 0f;
             animator.SetTrigger("Death");
             StartCoroutine(despawn());
+            Debug.Log("death");
         }
 
         IEnumerator despawn()
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             Destroy(gameObject);
         }
 
 
         public void OnHit(float damage)
         {
+            //On applique l'animation
             animator.SetTrigger("Hit");
+            //On arrête le personnage pour qu'il effectue l'anim sans courir
+            nva.speed = Mathf.Lerp(nva.speed, 0, 0.1f); 
+            
             pv = pv - damage;
-            Debug.Log(pv);
+            //Si des evenements supp sont necessaires pour cet ennemi, les invoque 
             onHit?.Invoke();
+        }
+
+        public void OnHitPersonnage()
+        {
+            personnage.onHit(degatAttaque);
         }
 
     }

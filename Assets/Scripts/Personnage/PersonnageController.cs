@@ -24,9 +24,10 @@ namespace Personnage
         public float vitesseMouvement = 0;
         public float regenPV = 0;
         private Animator anim;
-        private bool inAttaque;
+        private bool inAttaque, peutAttaquer;
         private CinemachineVirtualCamera cinemachine;
-        private float delaiMinAttaqueDistance;
+        private float delaiMinAttaqueDistance = 0.5f;
+        private float time = 0f;
 
 
         // Start is called before the first frame update
@@ -52,20 +53,35 @@ namespace Personnage
         // Update is called once per frame
         void Update()
         {
+
             if(pv == 0)
             {
                 onDeath();
             }
+
+            if(peutAttaquer == false)
+            {
+
+                time += Time.deltaTime;
+
+                if (time > delaiMinAttaqueDistance)
+                {
+                    time = 0;
+                    peutAttaquer = true; 
+                }
+            }
+
         }
 
         public void attaque()
         {
+            time += Time.deltaTime;
             StartCoroutine(routineAttaque());
         }
 
         public IEnumerator routineAttaque()
         {
-            if (inAttaque == false)
+            if (inAttaque == false && peutAttaquer == true)
             {
                 inAttaque = true;
                 anim.speed = 1 * vitesseAttaque;
@@ -73,6 +89,8 @@ namespace Personnage
                 {
                     fireProjectile();
                 }
+
+                peutAttaquer = false;
                 anim.SetTrigger("Attack");
                 yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
                 anim.speed = 1;
@@ -83,13 +101,16 @@ namespace Personnage
 
         private void fireProjectile()
         {
-            var position = transform.position + transform.forward;
-            position.y = (float)(position.y + 1.2);
-            var rotation = transform.rotation;
-            rotation.x = transform.GetChild(0).rotation.x;
-            var projectile = Instantiate(arme.projectilePrefab, position, rotation);
-            projectile.GetComponent<Projectile>().degats = degats;
-            projectile.GetComponent<Projectile>().Fire(10*arme.vitesseAttaque, transform.forward);
+            if (peutAttaquer == true)
+            {
+                var position = transform.position + transform.forward;
+                position.y = (float)(position.y + 1.2);
+                var rotation = transform.rotation;
+                rotation.x = transform.GetChild(0).rotation.x;
+                var projectile = Instantiate(arme.projectilePrefab, position, rotation);
+                projectile.GetComponent<Projectile>().degats = degats;
+                projectile.GetComponent<Projectile>().Fire(10 * arme.vitesseAttaque, transform.forward);
+            }
         }
 
         public void onHit(float damage)
