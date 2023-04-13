@@ -72,7 +72,6 @@ namespace Personnage
                 if(arme.armeProjectile == true)
                 {
                     fireProjectile();
-                    yield return new WaitForSeconds(delaiMinAttaqueDistance);
                 }
                 anim.SetTrigger("Attack");
                 yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
