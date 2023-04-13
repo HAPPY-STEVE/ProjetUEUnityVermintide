@@ -97,9 +97,9 @@ namespace Ennemis
         public void OnHit(float damage)
         {
             animator.SetTrigger("Hit");
-            onHit?.Invoke();
             pv = pv - damage;
             Debug.Log(pv);
+            onHit?.Invoke();
         }
 
     }

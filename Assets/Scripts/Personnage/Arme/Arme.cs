@@ -11,6 +11,7 @@ using UnityEngine;
 public class Arme : ScriptableObject
 {
     public string nom;
+    public GameObject armePrefab;
     public int pv;
     public int degats;
     public int defense;
