@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HeavyMeleeAnimator
+  m_Controller: {fileID: 9100000, guid: e44751f74e6f9b944bb1cfe47e1c8efb, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 5f00d2b03d15f744cbcce15d549c643c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f738dec8e0f41794e8ccc8f2f8887553, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7b1f1fc2eba67a640875c954b17f19f7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1d77e8d30dccbab4a95572ae52716700, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 08c560344443a3d4ea532fc747f47d18, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ce155f350c172054a8b5e54866a26397, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4b10551ea0fa22b4b801a1818012cd50, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 77189611c97d05f459fb69751cba93a1, type: 2}

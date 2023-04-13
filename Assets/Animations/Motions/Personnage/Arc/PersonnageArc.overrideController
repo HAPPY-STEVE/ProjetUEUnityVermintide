@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PersonnageArc
+  m_Controller: {fileID: 9100000, guid: 2d3ecb2775027b84b86a58bd51b23642, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: e6f615e1acceffa42a9561fac1f04248, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d2bfb84899d4f7b4bb7304f4ced362f5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 32f6068f466186f4faf7e58760a61ac8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0c22bba2e15bafe45913aff9b87c8f71, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4eb6208073c207d44a01993c227d981c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 04203aa1534bc6e4688578b12c92cd79, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0ef3860d73f8c114eb9a2ca56e6e1dd9, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f143b81cac911bb449a18772ef23bd63, type: 2}

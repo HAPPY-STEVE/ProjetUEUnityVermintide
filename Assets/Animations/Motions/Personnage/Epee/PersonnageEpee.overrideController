@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PersonnageEpee
+  m_Controller: {fileID: 9100000, guid: 2d3ecb2775027b84b86a58bd51b23642, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: e6f615e1acceffa42a9561fac1f04248, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0efd0b2d00688c44db2f4410b0dec06e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 32f6068f466186f4faf7e58760a61ac8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5bfb0224cd3b156449409d94b0dd95ad, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4eb6208073c207d44a01993c227d981c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9e4c3b512882cb64395f943ccc942995, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0ef3860d73f8c114eb9a2ca56e6e1dd9, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7c0cdf74521de55409458596e127e815, type: 2}

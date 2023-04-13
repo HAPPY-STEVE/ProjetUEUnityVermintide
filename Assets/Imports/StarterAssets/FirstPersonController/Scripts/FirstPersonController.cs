@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Personnage;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -51,6 +52,13 @@ namespace StarterAssets
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
 
+
+		[Space(10)]
+		[Header("Attack & Interact")]
+		[Tooltip("Portee d'interaction")]
+		public float interactRange = 4f;
+
+
 		// cinemachine
 		private float _cinemachineTargetPitch;
 
@@ -69,6 +77,7 @@ namespace StarterAssets
 		private PlayerInput _playerInput;
 #endif
 		private CharacterController _controller;
+		private PersonnageController _personnage;
 		private StarterAssetsInputs _input;
 		private GameObject _mainCamera;
 
@@ -115,6 +124,8 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+			Attack();
+			Interact();
 		}
 
 		private void LateUpdate()
@@ -122,6 +133,37 @@ namespace StarterAssets
 			CameraRotation();
 		}
 
+		#region inputMethods
+		private void Interact()
+        {
+
+			if (_input.interact)
+			{
+				RaycastHit hitInfo = new RaycastHit();
+			bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), 0)), out hitInfo, interactRange);
+			if (hit)
+				{
+					GameObject hitObject = hitInfo.transform.gameObject;
+					Debug.Log(hitObject);
+					if (hitObject.GetComponent<IInteractable>() != null)
+					{
+						Debug.Log("interactable");
+						hitObject.GetComponent<IInteractable>().Interact();
+					}
+				}
+			}
+		}
+
+		private void Attack()
+		{
+            if (_input.attack)
+            {
+				GetComponent<PersonnageController>().attaque();
+            }
+		}
+		#endregion
+
+		#region inputMethodsUnityNative
 		private void GroundedCheck()
 		{
 			// set sphere position, with offset
@@ -155,7 +197,7 @@ namespace StarterAssets
 		{
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-
+			targetSpeed = targetSpeed * GetComponent<PersonnageController>().vitesseMouvement;
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
 			// note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -265,4 +307,5 @@ namespace StarterAssets
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
 	}
+    #endregion
 }
