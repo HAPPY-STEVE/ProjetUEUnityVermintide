@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 /// <summary>
 /// Permet de définir toutes les propriétés liées à une arme, et d'initialiser le personnage en consequence.
@@ -24,8 +25,12 @@ public class Arme : ScriptableObject
 [CustomEditor(typeof(Arme))]
 public class MyScriptEditor : Editor
 {
+    public bool displaysExpanded;
+
     override public void OnInspectorGUI()
     {
+
+        serializedObject.Update();
         var myScript = target as Arme;
 
 
@@ -51,7 +56,15 @@ public class MyScriptEditor : Editor
         myScript.armeProjectile = GUILayout.Toggle(myScript.armeProjectile, "Arme à projectiles");
 
         if (myScript.armeProjectile == true)
-            myScript.projectilePrefab = (GameObject) EditorGUILayout.ObjectField(myScript.projectilePrefab, typeof(GameObject), true);
+        {
+            EditorPrefs.SetBool("FoldFlagArmeProjectile", true);
+            myScript.armeProjectile = EditorPrefs.GetBool("FoldFlagArmeProjectile");
+            myScript.projectilePrefab = (GameObject)EditorGUILayout.ObjectField(myScript.projectilePrefab, typeof(GameObject), true);
+            serializedObject.ApplyModifiedProperties();
+            EditorUtility.SetDirty(myScript);
+        }
 
+        serializedObject.ApplyModifiedProperties();
     }
+
 }
