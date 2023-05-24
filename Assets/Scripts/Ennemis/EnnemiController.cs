@@ -81,7 +81,11 @@ namespace Ennemis
             if (dist <= porteeAttaque)
             {
                 nva.speed = Mathf.Lerp(nva.speed, 0, 0.1f);
-                StartCoroutine(Attaque());            
+                StartCoroutine(Attaque());
+                GetComponent<FollowPlayer>().interrupt = true; 
+            } else
+            {
+                GetComponent<FollowPlayer>().interrupt = false;
             }
         }
 

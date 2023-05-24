@@ -43,8 +43,8 @@ public class ObjectPool : MonoBehaviour
     public GameObject GetPooledObject(string tag)
     {
         for (int i = 0; i < pooledObjects.Count; i++)
-        {
-            if (!pooledObjects[i].activeSelf && pooledObjects[i].tag == tag)
+            {
+                if (!pooledObjects[i].activeSelf && pooledObjects[i].tag == tag)
             {
                 return pooledObjects[i];
             }

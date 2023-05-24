@@ -34,7 +34,11 @@ namespace Ennemis
         {
             if(interrupt == false)
             {
+                agent.isStopped = false;
                 agent.SetDestination(target.position);
+            } else
+            {
+                agent.isStopped=true;
             }
         }
     

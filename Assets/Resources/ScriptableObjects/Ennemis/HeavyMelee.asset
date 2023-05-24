@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nom: 
   description: 
-  porteeAttaque: 0
+  porteeAttaque: 2
   pv: 200
-  degatAttaque: 0
+  degatAttaque: 50
   marcheAnimation: {fileID: 0}
   attaqueAnimation: {fileID: 0}
   mortAnimation: {fileID: 0}

@@ -14,16 +14,19 @@ namespace StarterAssets
 		public bool sprint;
 		public bool attack;
 		public bool interact;
+		public bool pauseMenu = false;
+		public bool scoreMenu = false;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
 
 		[Header("Mouse Cursor Settings")]
-		public bool cursorLocked = true;
+		public bool cursorLocked = false;
 		public bool cursorInputForLook = true;
 
+
 #if ENABLE_INPUT_SYSTEM
-		public void OnMove(InputValue value)
+        public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -55,6 +58,18 @@ namespace StarterAssets
 		public void OnInteract(InputValue value)
 		{
 			InteractInput(value.isPressed);
+		}
+
+
+		public void OnPauseMenu(InputValue value)
+		{
+			PauseMenuInput(value.isPressed);
+		}
+
+
+		public void OnScoreMenu(InputValue value)
+		{
+			ScoreMenuInput(value.isPressed);
 		}
 
 #endif
@@ -89,12 +104,24 @@ namespace StarterAssets
 		{
 			interact = newSprintState;
 		}
+
+
+		public void ScoreMenuInput(bool newSprintState)
+		{
+			scoreMenu = !scoreMenu;
+		}
+
+
+		public void PauseMenuInput(bool newSprintState)
+		{
+			pauseMenu = !pauseMenu;
+		}
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
 		}
 
-		private void SetCursorState(bool newState)
+		public void SetCursorState(bool newState)
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}

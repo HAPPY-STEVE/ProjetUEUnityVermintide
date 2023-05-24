@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-namespace LevelLoader
+namespace Scenes
 {
 	public enum Transition
     {
@@ -39,6 +39,14 @@ namespace LevelLoader
 					break;
                 default:
                     break;
+            }
+        }
+
+        public void Update()
+        {
+            if(transition == null)
+            {
+				transition = FindObjectOfType<Canvas>().GetComponent<Animator>(); 
             }
         }
         public static void LoadScene(string s, bool additive = false, bool setActive = false)

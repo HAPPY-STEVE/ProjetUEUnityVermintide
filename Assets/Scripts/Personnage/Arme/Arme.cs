@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+namespace Armes
+{
+
 /// <summary>
 /// Permet de définir toutes les propriétés liées à une arme, et d'initialiser le personnage en consequence.
 /// A definir. 
@@ -67,5 +70,7 @@ public class MyScriptEditor : Editor
 
         serializedObject.ApplyModifiedProperties();
     }
+
+}
 
 }

@@ -1,5 +1,7 @@
 using Armes;
 using Cinemachine;
+using Personnage.Upgrade;
+using Save;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,6 +35,12 @@ namespace Personnage
         // Start is called before the first frame update
         void Start()
         {
+            //A chaque map, on recupere upgrade(s) choisis
+            DataHolder dh = FindObjectOfType<DataHolder>();
+            if(dh.upgradesFloor.Count > 0)
+            {
+                ajoutUpgrades(dh.upgradesFloor);
+            }
             if(anim == null)
             {
                 anim = GetComponent<Animator>();
@@ -121,6 +129,45 @@ namespace Personnage
         public void onDeath()
         {
 
+        }
+
+        /// <summary>
+        /// Traite la liste d'upgrades passés par DataHolder. 
+        /// </summary>
+        /// <param name="upgrades"></param>
+        public void ajoutUpgrades(List<Upgrade.UpgradeStore> upgrades)
+        {
+            for (int i = 0; i < upgrades.Count; i++)
+            {
+                switch (upgrades[i].stat)
+                {
+                    case Stats.pv:
+                        pv *= upgrades[i].valeurUpgrade; 
+                        break;
+                    case Stats.degats:
+                        degats *= upgrades[i].valeurUpgrade;
+                        break;
+                    case Stats.defense:
+                        defense *= upgrades[i].valeurUpgrade;
+                        break;
+                    case Stats.magie:
+                        magie *= upgrades[i].valeurUpgrade;
+                        break;
+                    case Stats.vitesseAttaque:
+                        vitesseAttaque *= upgrades[i].valeurUpgrade;
+                        break;
+                    case Stats.vitesseMouvement:
+                        vitesseMouvement *= upgrades[i].valeurUpgrade;
+                        break;
+                    case Stats.regenPV:
+                        regenPV *= upgrades[i].valeurUpgrade;
+                        break;
+                    default:
+                        regenPV *= upgrades[i].valeurUpgrade;
+                        break;
+                }
+            }
+            
         }
 
     }
