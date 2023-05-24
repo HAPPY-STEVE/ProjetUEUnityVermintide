@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.2846214, g: 0.37120992, b: 0.498806, a: 1}
+  m_IndirectSpecularColor: {r: 0.28462112, g: 0.37120938, b: 0.49880487, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -158,6 +158,7 @@ MonoBehaviour:
   pauseMenu:
   - {fileID: 213529685}
   - {fileID: 1954268414}
+  pauseMenuActive: 0
 --- !u!4 &13242502
 Transform:
   m_ObjectHideFlags: 0
@@ -2802,11 +2803,11 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 963ea886e08d764458090c37e3ad344c, type: 2}
     - target: {fileID: 2426322389068204132, guid: 4f6b1834f586f164081ade4900b96ad7, type: 3}
       propertyPath: cursorLocked
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2426322389068204132, guid: 4f6b1834f586f164081ade4900b96ad7, type: 3}
       propertyPath: cursorInputForLook
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f6b1834f586f164081ade4900b96ad7, type: 3}
@@ -3042,10 +3043,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1954268414}
-        m_TargetAssemblyTypeName: UI.Tween.SlidingTween, Assembly-CSharp
-        m_MethodName: OnClose
-        m_Mode: 1
+      - m_Target: {fileID: 13242501}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: setPause
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

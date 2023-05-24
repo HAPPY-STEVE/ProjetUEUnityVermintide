@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     public List<TweenContainer> scoreMenu; 
     public List<TweenContainer> pauseMenu;
     private bool scoreMenuActive = false;
-    private bool pauseMenuActive = false;
+    public bool pauseMenuActive = false;
     private InputManager im;
 
     public void Start()
@@ -41,7 +41,6 @@ public class UIManager : MonoBehaviour
 
             }
         }
-
         if (starter.pauseMenu == true)
         {
             if (pauseMenuActive == false)
@@ -70,7 +69,11 @@ public class UIManager : MonoBehaviour
 
     }
 
-    private void hidePauseMenu()
+    public void setPause(bool t)
+    {
+        starter.pauseMenu = false; 
+    }
+    public void hidePauseMenu()
     {
         Debug.Log("hide pause");
         foreach(TweenContainer t in pauseMenu)
