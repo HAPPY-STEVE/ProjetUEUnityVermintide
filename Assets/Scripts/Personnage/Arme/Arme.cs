@@ -14,6 +14,7 @@ namespace Armes
 public class Arme : ScriptableObject
 {
     public string nom;
+    public AnimatorOverrideController controllerOverride;
     public GameObject armePrefab;
     public int pv;
     public int degats;

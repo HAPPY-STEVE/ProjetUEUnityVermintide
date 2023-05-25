@@ -93,7 +93,7 @@
                 {
                     "name": "up",
                     "id": "27e0f89a-8a6f-405a-836d-ddb044cbb494",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -115,7 +115,7 @@
                 {
                     "name": "left",
                     "id": "080a7d8b-daa2-4b43-a2c2-953ccf88e747",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -191,11 +191,11 @@
                 },
                 {
                     "name": "",
-                    "id": "7cc342a8-514c-4aa4-a662-7de677767989",
-                    "path": "<Mouse>/delta",
+                    "id": "3cfcf7e9-4b2d-49c2-9cfc-6d2642e90a59",
+                    "path": "<Pointer>/delta",
                     "interactions": "",
-                    "processors": "InvertVector2(invertX=false),ScaleVector2(x=0.05,y=0.05)",
-                    "groups": "",
+                    "processors": "InvertVector2(invertX=false),ScaleVector2(x=0.01,y=0.01)",
+                    "groups": "Keyboard&Mouse",
                     "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -418,7 +418,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PauseMenu",
+                    "name": "PauseMenuUI",
                     "type": "Button",
                     "id": "237decdf-5fe2-42c2-989b-6e72ac769057",
                     "expectedControlType": "Button",
@@ -853,7 +853,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "PauseMenu",
+                    "action": "PauseMenuUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

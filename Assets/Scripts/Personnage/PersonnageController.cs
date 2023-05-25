@@ -37,10 +37,15 @@ namespace Personnage
         {
             //A chaque map, on recupere upgrade(s) choisis
             DataHolder dh = FindObjectOfType<DataHolder>();
-            if(dh.upgradesFloor.Count > 0)
+            if(dh!= null)
             {
-                ajoutUpgrades(dh.upgradesFloor);
+                if (dh.upgradesFloor.Count > 0)
+                {
+                    ajoutUpgrades(dh.upgradesFloor);
+                }
+
             }
+
             if(anim == null)
             {
                 anim = GetComponent<Animator>();

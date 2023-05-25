@@ -1,3 +1,4 @@
+using Armes;
 using Personnage;
 using Personnage.Upgrade;
 using System;
@@ -14,6 +15,7 @@ namespace Save
         public int tempsRun; 
         public int tempsRunMapActuel;
         private PersonnageController pc;
+        public Arme armechoisi; 
         /// <summary>
         /// Upgrades choisis et appliques au prochain floor
         /// </summary>
@@ -24,9 +26,15 @@ namespace Save
         public List<UpgradeStore> allUpgrades = new List<UpgradeStore>();
 
         // Start is called before the first frame update
-        void Start()
+        protected override void Awake()
         {
+            base.Awake(); 
+
             pc = FindObjectOfType<PersonnageController>();
+            if(pc != null & armechoisi != null)
+            {
+                pc.arme = armechoisi; 
+            }
         }
 
         public void addUpgradeFloor(UpgradeStore upgrade)
