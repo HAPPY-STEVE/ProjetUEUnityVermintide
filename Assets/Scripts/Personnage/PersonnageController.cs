@@ -31,6 +31,8 @@ namespace Personnage
         private float delaiMinAttaqueDistance = 0.5f;
         private float time = 0f;
 
+        public int Pv { get => pv; set => pv = value; }
+
 
         // Start is called before the first frame update
         void Start()
@@ -128,7 +130,9 @@ namespace Personnage
 
         public void onHit(float damage)
         {
-            pv -= (int)damage; 
+            pv -= (int)damage;
+            Debug.Log("pv perso:" + pv);
+
         }
 
         public void onDeath()
