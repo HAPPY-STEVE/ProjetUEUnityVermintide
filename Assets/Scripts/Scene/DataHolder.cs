@@ -30,11 +30,6 @@ namespace Save
         {
             base.Awake(); 
 
-            pc = FindObjectOfType<PersonnageController>();
-            if(pc != null & armechoisi != null)
-            {
-                pc.arme = armechoisi; 
-            }
         }
 
         public void addUpgradeFloor(UpgradeStore upgrade)
@@ -47,6 +42,11 @@ namespace Save
             }
             upgradesFloor.Add(upgrade);
             allUpgrades.Add(upgrade);
+        }
+
+        public void setArme(Arme arme)
+        {
+            armechoisi = arme;
         }
 
     }

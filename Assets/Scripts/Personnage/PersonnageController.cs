@@ -1,5 +1,6 @@
 using Armes;
 using Cinemachine;
+using Ennemis;
 using Personnage.Upgrade;
 using Save;
 using System;
@@ -7,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Personnage
 {
@@ -30,30 +32,32 @@ namespace Personnage
         private CinemachineVirtualCamera cinemachine;
         private float delaiMinAttaqueDistance = 0.5f;
         private float time = 0f;
-
+        [Header("Evenements")]
+        public UnityEvent onHitEvent; 
         public int Pv { get => pv; set => pv = value; }
 
 
         // Start is called before the first frame update
         void Start()
         {
+            DataHolder dh  = DataHolder.GetInstance();
             //A chaque map, on recupere upgrade(s) choisis
-            DataHolder dh = FindObjectOfType<DataHolder>();
-            if(dh!= null)
+            if (dh != null)
             {
-                if (dh.upgradesFloor.Count > 0)
+                if (dh.armechoisi)
                 {
-                    ajoutUpgrades(dh.upgradesFloor);
+                    arme = dh.armechoisi;
+                    Debug.Log(arme);
                 }
-
             }
-
-            if(anim == null)
+            if (anim == null)
             {
                 anim = GetComponent<Animator>();
             }
             if(arme != null)
             {
+                Debug.Log(arme);
+
                 pv = arme.pv;
                 degats = arme.degats;
                 defense = arme.defense;
@@ -61,8 +65,17 @@ namespace Personnage
                 vitesseAttaque = arme.vitesseAttaque;
                 vitesseMouvement = arme.vitesseMouvement;
                 regenPV = arme.regenPV;
+                Instantiate(arme.armePrefab, gameObject.transform.Find("PlayerCameraRoot").transform.Find("WeaponHolder").transform);
             }
-            cinemachine = (CinemachineVirtualCamera)CinemachineCore.Instance.GetActiveBrain(0).ActiveVirtualCamera;
+
+            if (dh != null)
+            {
+                if (dh.upgradesFloor.Count > 0)
+                {
+                    ajoutUpgrades(dh.upgradesFloor);
+                }
+            }
+                cinemachine = (CinemachineVirtualCamera)CinemachineCore.Instance.GetActiveBrain(0).ActiveVirtualCamera;
         }
 
         // Update is called once per frame
@@ -118,18 +131,20 @@ namespace Personnage
         {
             if (peutAttaquer == true)
             {
-                var position = transform.position + transform.forward;
+                var position = transform.position + Camera.main.transform.forward * 2;
                 position.y = (float)(position.y + 1.2);
+                
                 var rotation = transform.rotation;
                 rotation.x = transform.GetChild(0).rotation.x;
                 var projectile = Instantiate(arme.projectilePrefab, position, rotation);
-                projectile.GetComponent<Projectile>().degats = degats;
-                projectile.GetComponent<Projectile>().Fire(10 * arme.vitesseAttaque, transform.forward);
+                projectile.GetComponent<Projectile>().degats = degats; 
+                projectile.GetComponent<Projectile>().Fire(10 * arme.vitesseAttaque, Camera.main.transform.forward * vitesseAttaque);
             }
         }
 
         public void onHit(float damage)
         {
+            onHitEvent?.Invoke();
             pv -= (int)damage;
             Debug.Log("pv perso:" + pv);
 

@@ -21,3 +21,4 @@ MonoBehaviour:
   attaqueAnimation: {fileID: 0}
   mortAnimation: {fileID: 0}
   ennemiPrefab: {fileID: 0}
+  projectilePrefab: {fileID: 7034370333902334381, guid: eab5964a3d6eec74eb1e6db4c0a3ab62, type: 3}

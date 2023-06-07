@@ -20,6 +20,8 @@ public class EnnemiSO : ScriptableObject
     public Animation attaqueAnimation;
     public Animation mortAnimation;
     [Header("Prefab")]
-    public GameObject ennemiPrefab; 
+    public GameObject ennemiPrefab;
+    [Header("Projectile")]
+    public GameObject projectilePrefab;
 
 }

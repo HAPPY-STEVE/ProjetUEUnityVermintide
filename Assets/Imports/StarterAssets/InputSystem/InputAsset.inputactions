@@ -194,7 +194,7 @@
                     "id": "3cfcf7e9-4b2d-49c2-9cfc-6d2642e90a59",
                     "path": "<Pointer>/delta",
                     "interactions": "",
-                    "processors": "InvertVector2(invertX=false),ScaleVector2(x=0.01,y=0.01)",
+                    "processors": "InvertVector2(invertX=false),ScaleVector2",
                     "groups": "Keyboard&Mouse",
                     "action": "Look",
                     "isComposite": false,

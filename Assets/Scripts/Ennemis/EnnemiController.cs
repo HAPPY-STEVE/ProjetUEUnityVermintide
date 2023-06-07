@@ -23,6 +23,9 @@ namespace Ennemis
         [SerializeField, Range(0, 25f)]
         private float porteeAttaque;
         public float pv;
+        public float delaiMinAttaqueDistance = 3f;
+        private float time = 0f;
+        private bool peutAttaquer = false; 
         [SerializeField, Range(0, 100f)]
         private float degatAttaque;
         [Header("Animations")]
@@ -45,6 +48,12 @@ namespace Ennemis
             personnage = FindObjectOfType<PersonnageController>();
             animator = GetComponent<Animator>();
             nva = GetComponent<NavMeshAgent>();
+            if(GetComponent<FollowPlayer>() != null)
+            {
+                GetComponent<FollowPlayer>().maxDistance = porteeAttaque;
+
+            }
+
         }
 
         // Update is called once per frame
@@ -54,6 +63,22 @@ namespace Ennemis
 
             //Check s'il est possible d'attaquer 
             checkDistancePersonnage();
+
+
+
+            if (peutAttaquer == false)
+            {
+
+                time += Time.deltaTime;
+
+                if (time > delaiMinAttaqueDistance)
+                {
+                    time = 0;
+                    peutAttaquer = true;
+                }
+            }
+
+
             if (pv <= 0)
             {
                 onMort?.Invoke();
@@ -78,8 +103,9 @@ namespace Ennemis
         {
 
             float dist = Vector3.Distance(personnage.transform.position, transform.position);
-            if (dist <= porteeAttaque)
+            if (dist <= porteeAttaque & peutAttaquer==true)
             {
+                peutAttaquer = false; 
                 nva.speed = Mathf.Lerp(nva.speed, 0, 0.1f);
                 StartCoroutine(Attaque());
                 GetComponent<FollowPlayer>().interrupt = true; 
@@ -91,7 +117,12 @@ namespace Ennemis
 
         IEnumerator Attaque()
         {
+
             animator.SetTrigger("Attack");
+            if(referenceSO.projectilePrefab != null)
+            {
+                Instantiate(referenceSO.projectilePrefab, gameObject.transform);
+            }
             //On attend la fin de l'anim
             yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
             //On remet la velocite a l'ennemi 
