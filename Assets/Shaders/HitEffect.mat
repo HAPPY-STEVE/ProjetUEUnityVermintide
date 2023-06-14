@@ -91,7 +91,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _FullscreenIntensity: 0.223
+    - _FullscreenIntensity: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -110,7 +110,7 @@ Material:
     - _VignetteRadiusPower: 3.9
     - _VoronoiPower: 14.9
     - _VoronoiScale: 47.1
-    - _VoronoiSpeed: 20
+    - _VoronoiSpeed: 0
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 1

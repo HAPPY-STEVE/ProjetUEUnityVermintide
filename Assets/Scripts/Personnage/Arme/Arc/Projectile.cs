@@ -69,10 +69,9 @@ namespace Armes
         {
             if (projectileEnnemi == true)
             {
-                Debug.Log(collision);
-                Debug.Log(lastCollider);
                 if (collision.transform.parent?.gameObject.GetComponent<PersonnageController>()!=null && collision != lastCollider)
                 {
+                    
                     Debug.Log(collision.transform.parent.gameObject.GetComponent<PersonnageController>());
                     lastCollider = collision;
                     collision.transform.parent.gameObject.GetComponent<PersonnageController>().onHit(degats);

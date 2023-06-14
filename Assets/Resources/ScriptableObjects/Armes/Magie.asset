@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Magie
   m_EditorClassIdentifier: 
   nom: Magie
+  controllerOverride: {fileID: 22100000, guid: bb7446119ed38dd4388699caf4d86710, type: 2}
+  armePrefab: {fileID: 4935764233736954185, guid: d38b6897a57dbef41a16968ff8108a4d, type: 3}
   pv: 75
   degats: 20
   defense: 2
@@ -20,3 +22,5 @@ MonoBehaviour:
   vitesseAttaque: 1
   vitesseMouvement: 1.25
   regenPV: 0
+  armeProjectile: 1
+  projectilePrefab: {fileID: 1680459015261895771, guid: c944fb95fed0f5b4db1cc5e649e270f0, type: 3}

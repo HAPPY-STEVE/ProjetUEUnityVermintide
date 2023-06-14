@@ -12,8 +12,7 @@ namespace Save
     {
         [Header("Valeurs pour fin de run")]
         public int nbEnnemisTues;
-        public int tempsRun; 
-        public int tempsRunMapActuel;
+        public float tempsRun; 
         private PersonnageController pc;
         public Arme armechoisi; 
         /// <summary>
@@ -49,6 +48,10 @@ namespace Save
             armechoisi = arme;
         }
 
+        public void endOfRun(float t)
+        {
+            tempsRun += t; 
+        }
     }
 
 }

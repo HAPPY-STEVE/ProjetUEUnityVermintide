@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nom: 
   description: 
-  porteeAttaque: 2
+  porteeAttaque: 1.7
   pv: 100
   degatAttaque: 15
   marcheAnimation: {fileID: 0}
   attaqueAnimation: {fileID: 0}
   mortAnimation: {fileID: 0}
   ennemiPrefab: {fileID: 1990249716122316188, guid: 103665cf4c6478c42bcbabf543d85460, type: 3}
+  projectilePrefab: {fileID: 0}

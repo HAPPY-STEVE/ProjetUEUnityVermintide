@@ -15,85 +15,66 @@ public class PersonnageEffectController : MonoBehaviour
     [SerializeField] private float tempsHitEffet = 1f;
     [SerializeField] private float tempsHealEffet = 1;
     [SerializeField] private float transitionPeriod = 1;
+    private bool inHit = false; 
     private PersonnageController pc;
 
     private void Update()
     {
 
+        ScriptableRendererFeature feature = rendererData.rendererFeatures.Where((f) => f.name == "BlitHit").FirstOrDefault();
+        var blitFeature = feature as Blit;
     }
 
     private void Start()
     {
         pc = GetComponent<PersonnageController>();
-        pc.onHitEvent.AddListener(() => { hitEffect(tempsHitEffet); });
+        pc.onHitEvent.AddListener(() => { StopAllCoroutines();  StartCoroutine(hitEffect()); });
         ScriptableRendererFeature feature = rendererData.rendererFeatures.Where((f) => f.name == "BlitHit").FirstOrDefault();
         var blitFeature = feature as Blit;
         var material = blitFeature.blitPass.blitMaterial;
-        material.SetFloat("_VoronoiSpeed", 20f);
+        int fullscreenIntensity = Shader.PropertyToID("_FullscreenIntensity");
+        material.SetFloat(fullscreenIntensity, 0f);
     }
     private void OnDestroy()
     {
     }
 
 
-    private void hitEffect(float f)
+    private IEnumerator hitEffect()
     {
-        float duration = tempsHitEffet;
-        float voronoiSpeed = 0f;
-        ScriptableRendererFeature feature = rendererData.rendererFeatures.Where((f) => f.name == "BlitHit").FirstOrDefault();
-        var blitFeature = feature as Blit;
-        var material = blitFeature.blitPass.blitMaterial;
-        float time = 0;
-        float startValue = material.GetFloat("_VoronoiSpeed");
+            int fullscreenIntensity = Shader.PropertyToID("_FullscreenIntensity");
+            Debug.Log("hit effect");
+            float duration = tempsHitEffet;
+            ScriptableRendererFeature feature = rendererData.rendererFeatures.Where((f) => f.name == "BlitHit").FirstOrDefault();
+            var blitFeature = feature as Blit;
+            var material = blitFeature.blitPass.blitMaterial;
+            var start = material.GetFloat(fullscreenIntensity);
+            var endValue = 0.2f;
+            float time = 0; 
+            while (time < duration && material.GetFloat(fullscreenIntensity) != endValue)
+            {
+                Debug.Log("in while" + material.GetFloat(fullscreenIntensity) + Time.timeScale);
+                var value = Mathf.Lerp(start, endValue, time);
+                material.SetFloat(fullscreenIntensity, value);
+                time += Time.deltaTime;
+                yield return null;
 
-        material.SetFloat("_VoronoiSpeed", voronoiSpeed);
-        rendererData.SetDirty();
-        while (time < duration)
-        {
-            startValue = material.GetFloat("_VoronoiSpeed");
-            time += Time.deltaTime;
-            Debug.Log(material.GetFloat("_VoronoiSpeed"));
+            }
+            time = 0;
+            endValue = 0f;
+            start = material.GetFloat(fullscreenIntensity);
+            while (time < duration && material.GetFloat(fullscreenIntensity) != endValue)
+            {
+                Debug.Log("out while " + material.GetFloat(fullscreenIntensity) + " " + time);
+                var value = Mathf.Lerp(start, endValue, time);
+                material.SetFloat(fullscreenIntensity, value);
+                time += Time.deltaTime;
+                yield return null;
 
-        }
+            }
+
 
     }
 
-    private void startHitEffect(float hitTime)
-    {
-        float duration = hitTime / 2; 
-        float voronoiSpeed = 0f; 
-        ScriptableRendererFeature feature = rendererData.rendererFeatures.Where((f) => f.name == "BlitHit").FirstOrDefault();
-        var blitFeature = feature as Blit;
-        var material = blitFeature.blitPass.blitMaterial;
-        float time = 0;
-        float startValue = material.GetFloat("_VoronoiSpeed");
-        while (time < duration)
-        {
-            startValue = material.GetFloat("_VoronoiSpeed");
-            material.SetFloat("_VoronoiSpeed", voronoiSpeed);
-            time += Time.deltaTime;
-            Debug.Log(material.GetFloat("_VoronoiSpeed"));
-
-        }
-        endHitEffect(hitTime/2); 
-    }
-
-    private void endHitEffect(float hitTime)
-    {
-        float voronoiSpeed =  10f;
-        ScriptableRendererFeature feature = rendererData.rendererFeatures.Where((f) => f.name == "BlitHit").FirstOrDefault();
-        var blitFeature = feature as Blit;
-        var material = blitFeature.blitPass.blitMaterial;
-        float time = 0;
-        float startValue = material.GetFloat("_VoronoiSpeed");
-        while (time < hitTime)
-        {
-            startValue = material.GetFloat("_VoronoiSpeed");
-
-            material.SetFloat("_VoronoiSpeed", voronoiSpeed);
-            Debug.Log(material.GetFloat("_VoronoiSpeed"));
-            time += Time.deltaTime;
-        }
-    }
 
 }

@@ -1,4 +1,5 @@
 using Personnage;
+using Save;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -131,6 +132,12 @@ namespace Ennemis
 
         public void OnMort()
         {
+            DataHolder dc = FindObjectOfType<DataHolder>();
+            if(dc != null)
+            {
+                dc.nbEnnemisTues += 1; 
+            }
+
             nva.speed = 0f;
             animator.SetTrigger("Death");
             StartCoroutine(despawn());
@@ -139,8 +146,10 @@ namespace Ennemis
 
         IEnumerator despawn()
         {
-            yield return new WaitForSeconds(1f);
-            Destroy(gameObject);
+            yield return new WaitForSeconds(0.5f);
+            yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+            Init();
+            gameObject.SetActive(false);
         }
 
 

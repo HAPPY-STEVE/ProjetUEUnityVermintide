@@ -8,6 +8,9 @@ TagManager:
   - Ennemi
   - choixUpgrade
   - FxTemporaire
+  - Melee
+  - Ranged
+  - HeavyMelee
   layers:
   - Default
   - TransparentFX
