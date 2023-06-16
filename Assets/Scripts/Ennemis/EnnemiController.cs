@@ -26,7 +26,7 @@ namespace Ennemis
         public float pv;
         public float delaiMinAttaqueDistance = 3f;
         private float time = 0f;
-        private bool peutAttaquer = false; 
+        public bool peutAttaquer = false; 
         [SerializeField, Range(0, 100f)]
         private float degatAttaque;
         [Header("Animations")]
@@ -42,6 +42,8 @@ namespace Ennemis
         public UnityEvent onMort;
         public UnityEvent onHit;
         private NavMeshAgent nva; 
+        private FieldOfView fov;
+        private bool mourant = false; 
 
         void Start()
         {
@@ -49,17 +51,23 @@ namespace Ennemis
             personnage = FindObjectOfType<PersonnageController>();
             animator = GetComponent<Animator>();
             nva = GetComponent<NavMeshAgent>();
-            if(GetComponent<FollowPlayer>() != null)
+            fov = GetComponent<FieldOfView>();
+            if (GetComponent<FollowPlayer>() != null)
             {
                 GetComponent<FollowPlayer>().maxDistance = porteeAttaque;
 
             }
+            if(colliderHit != null)
+            {
+                colliderHit.enabled = false;
 
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
+            Debug.Log(colliderHit.enabled);
             animator.SetFloat("Velocity", nva.speed);
 
             //Check s'il est possible d'attaquer 
@@ -106,10 +114,22 @@ namespace Ennemis
             float dist = Vector3.Distance(personnage.transform.position, transform.position);
             if (dist <= porteeAttaque & peutAttaquer==true)
             {
-                peutAttaquer = false; 
-                nva.speed = Mathf.Lerp(nva.speed, 0, 0.1f);
-                StartCoroutine(Attaque());
-                GetComponent<FollowPlayer>().interrupt = true; 
+                if(fov != null)
+                {
+                    if(fov.canSeePlayer == true)
+                    {
+                        peutAttaquer = false;
+                        nva.speed = Mathf.Lerp(nva.speed, 0, 0.1f);
+                        StartCoroutine(Attaque());
+                        GetComponent<FollowPlayer>().interrupt = true;
+                    }
+                } else
+                {
+                    peutAttaquer = false;
+                    nva.speed = Mathf.Lerp(nva.speed, 0, 0.1f);
+                    StartCoroutine(Attaque());
+                    GetComponent<FollowPlayer>().interrupt = true;
+                }
             } else
             {
                 GetComponent<FollowPlayer>().interrupt = false;
@@ -118,9 +138,13 @@ namespace Ennemis
 
         IEnumerator Attaque()
         {
-
+            if (colliderHit != null)
+            {
+                colliderHit.enabled = true;
+            }
+            yield return new WaitForSeconds(0.1f);
             animator.SetTrigger("Attack");
-            if(referenceSO.projectilePrefab != null)
+            if (referenceSO.projectilePrefab != null)
             {
                 Instantiate(referenceSO.projectilePrefab, gameObject.transform);
             }
@@ -128,14 +152,21 @@ namespace Ennemis
             yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
             //On remet la velocite a l'ennemi 
             nva.speed = Mathf.Lerp(0, 15, 0.1f);
+            yield return new WaitForSeconds(0.2f);
+            if (colliderHit != null)
+            {
+                colliderHit.enabled = false;
+            }
         }
 
         public void OnMort()
         {
             DataHolder dc = FindObjectOfType<DataHolder>();
-            if(dc != null)
+            if(dc != null && mourant == false)
             {
-                dc.nbEnnemisTues += 1; 
+                dc.nbEnnemisTues += 1;
+                mourant = true;
+
             }
 
             nva.speed = 0f;
@@ -148,6 +179,7 @@ namespace Ennemis
         {
             yield return new WaitForSeconds(0.5f);
             yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+            //On reinitialise les stats pour que l'objet soit réutilisable 
             Init();
             gameObject.SetActive(false);
         }

@@ -75,13 +75,14 @@ namespace Personnage
                     ajoutUpgrades(dh.upgradesFloor);
                 }
             }
+
+            delaiMinAttaqueDistance = (delaiMinAttaqueDistance * (1 - vitesseAttaque / 10));
                 cinemachine = (CinemachineVirtualCamera)CinemachineCore.Instance.GetActiveBrain(0).ActiveVirtualCamera;
         }
 
         // Update is called once per frame
         void Update()
         {
-
             if(pv == 0)
             {
                 onDeath();
@@ -152,7 +153,12 @@ namespace Personnage
 
         public void onDeath()
         {
+            RunManager rm = FindObjectOfType<RunManager>();
+            if(rm != null)
+            {
+                rm.gameOver();
 
+            }
         }
 
         /// <summary>

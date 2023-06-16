@@ -49,6 +49,13 @@ namespace Scenes
 				transition = FindObjectOfType<Canvas>().GetComponent<Animator>(); 
             }
         }
+
+		public void reloadScene()
+        {
+			Scene s = SceneManager.GetActiveScene();
+			LoadScene(s.name);
+		}
+
         public static void LoadScene(string s, bool additive = false, bool setActive = false)
 		{
 			if (s == null)

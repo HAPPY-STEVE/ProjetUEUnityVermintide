@@ -24,8 +24,8 @@ namespace UI
         // Update is called once per frame
         void Update()
         {
-            tempsText.text = dc.nbEnnemisTues.ToString();
-            scoreText.text = rm.tempsRun.ToString(); 
+            scoreText.text = dc.nbEnnemisTues.ToString();
+            tempsText.text = ((int)rm.tempsRun).ToString(); 
         }
     }
 

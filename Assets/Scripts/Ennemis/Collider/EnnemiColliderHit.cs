@@ -12,20 +12,26 @@ namespace Ennemis
     {
         private EnnemiController ennemi; 
         private Collider lastCollider;
-
+        private bool hit=false; 
         // Start is called before the first frame update
         void Start()
         {
             ennemi = GetComponentInParent<EnnemiController>();
         }
 
-        // Count how many colliders are overlapping this trigger.
-        // If desired, you can filter here by tag, attached components, etc.
-        // so that only certain collisions count. Physics layers help too.
+        private void Update()
+        {
+            if(ennemi.peutAttaquer == true)
+            {
+                hit = false; 
+            }
+        }
+
         void OnTriggerEnter(Collider other)
         {
-            if(lastCollider != other)
+            if(lastCollider != other & hit == false)
             {
+                hit = true; 
                 ennemi.OnHitPersonnage();
 
             }

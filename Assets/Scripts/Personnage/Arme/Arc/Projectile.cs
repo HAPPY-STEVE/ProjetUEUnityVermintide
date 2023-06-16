@@ -98,7 +98,7 @@ namespace Armes
                 collision.gameObject.GetComponent<EnnemiController>().OnHit(degats);
                 Debug.Log("degats :" + degats + "pv ennemi " + collision.gameObject.GetComponent<EnnemiController>().pv);
                 onCollision?.Invoke();
-                Destroy(gameObject);
+                StartCoroutine(despawn());
             }
             else
             {

@@ -1,23 +1,99 @@
+using Ennemis;
+using Personnage;
+using Save;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Fait pour gerer les debuts et fin de run, et garder le temps en compte. 
+/// </summary>
 public class RunManager : MonoBehaviour
 {
+    [Header("Ne pas modifier, seulement pour debug")]
     public float tempsRun = 0f;
-    private bool runStart = false; 
+    [Header("Ennemis à tuer pour clear")]
+    public int limiteEnnemis = 100;
+    private bool runStart = false;
+    [HeaderAttribute("UI")]
+    public GameObject endUIGameObject;
+    public GameObject gameOverUIGameObject;
+    private DataHolder dc; 
     // Start is called before the first frame update
     void Start()
     {
-        runStart = true;     
+        dc = FindObjectOfType<DataHolder>();
+        runStart = true;
+        dc.nbEnnemisTues = 0;
+
+        endUIGameObject.SetActive(false);
+        gameOverUIGameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        while (runStart)
+        if (runStart==true)
         {
             tempsRun += Time.deltaTime;
         }
+
+        if(dc.nbEnnemisTues >= limiteEnnemis & runStart == true)
+        {
+            endOfRun(); 
+        }
+    }
+
+    /// <summary>
+    /// Appele quand on a termine une map.
+    /// </summary>
+    void endOfRun()
+    {
+        dc.endOfRun(tempsRun); 
+        runStart = false;
+
+        PersonnageController pc = FindObjectOfType<PersonnageController>();
+        List <Spawner> spawners = FindObjectsOfType<Spawner>().ToList();
+        List <EnnemiController> ec = FindObjectsOfType<EnnemiController>().ToList();
+
+
+        foreach(Spawner s in spawners)
+        {
+            s.enabled = false; 
+        }
+        foreach (EnnemiController e in ec)
+        {
+            e.OnMort();
+        }
+
+        FindObjectOfType<InputManager>().ToggleActionMap("UI");
+        Cursor.lockState = CursorLockMode.Confined; 
+        endUIGameObject.SetActive(true);
+    }
+
+    public void gameOver()
+    {
+
+        dc.endOfRun(tempsRun);
+        runStart = false;
+
+        PersonnageController pc = FindObjectOfType<PersonnageController>();
+        List<Spawner> spawners = FindObjectsOfType<Spawner>().ToList();
+        List<EnnemiController> ec = FindObjectsOfType<EnnemiController>().ToList();
+
+
+        foreach (Spawner s in spawners)
+        {
+            s.enabled = false;
+        }
+        foreach (EnnemiController e in ec)
+        {
+            e.OnMort();
+        }
+
+        FindObjectOfType<InputManager>().ToggleActionMap("UI");
+        Cursor.lockState = CursorLockMode.Confined;
+        gameOverUIGameObject.SetActive(true);
     }
 }

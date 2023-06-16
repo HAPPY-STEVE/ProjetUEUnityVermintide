@@ -10781,13 +10781,14 @@ GameObject:
   - component: {fileID: 4709725171664282271}
   - component: {fileID: 5303736486272324203}
   - component: {fileID: 431562490575437885}
+  - component: {fileID: 172869397559462573}
   m_Layer: 0
   m_Name: EnnemiRanged
   m_TagString: Ranged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &103935146135685443
 Transform:
   m_ObjectHideFlags: 0
@@ -10902,6 +10903,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.3767529, y: 7.233238, z: 1}
   m_Center: {x: 0.14918524, y: 3.1166203, z: -0.0000000010453535}
+--- !u!114 &172869397559462573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107233214908044403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac61ca762db26248b1ee7e418eb92f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0
+  angle: 0
+  playerRef: {fileID: 0}
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 65
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 128
+  canSeePlayer: 0
 --- !u!1 &107233214997906677
 GameObject:
   m_ObjectHideFlags: 0

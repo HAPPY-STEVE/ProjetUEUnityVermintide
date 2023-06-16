@@ -11,8 +11,9 @@ namespace Save
     public class DataHolder : Singleton<DataHolder>
     {
         [Header("Valeurs pour fin de run")]
-        public int nbEnnemisTues;
-        public float tempsRun; 
+        public int nbEnnemisTues = 0;
+        public float tempsRun = 0;
+        public int currentMapScene;
         private PersonnageController pc;
         public Arme armechoisi; 
         /// <summary>

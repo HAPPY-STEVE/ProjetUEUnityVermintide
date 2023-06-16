@@ -53,7 +53,6 @@ public class PersonnageEffectController : MonoBehaviour
             float time = 0; 
             while (time < duration && material.GetFloat(fullscreenIntensity) != endValue)
             {
-                Debug.Log("in while" + material.GetFloat(fullscreenIntensity) + Time.timeScale);
                 var value = Mathf.Lerp(start, endValue, time);
                 material.SetFloat(fullscreenIntensity, value);
                 time += Time.deltaTime;
@@ -65,7 +64,6 @@ public class PersonnageEffectController : MonoBehaviour
             start = material.GetFloat(fullscreenIntensity);
             while (time < duration && material.GetFloat(fullscreenIntensity) != endValue)
             {
-                Debug.Log("out while " + material.GetFloat(fullscreenIntensity) + " " + time);
                 var value = Mathf.Lerp(start, endValue, time);
                 material.SetFloat(fullscreenIntensity, value);
                 time += Time.deltaTime;
