@@ -67,7 +67,6 @@ namespace Ennemis
         // Update is called once per frame
         void Update()
         {
-            Debug.Log(colliderHit.enabled);
             animator.SetFloat("Velocity", nva.speed);
 
             //Check s'il est possible d'attaquer 

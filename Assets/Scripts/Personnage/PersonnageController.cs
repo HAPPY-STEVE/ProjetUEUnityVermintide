@@ -145,8 +145,8 @@ namespace Personnage
 
         public void onHit(float damage)
         {
-            onHitEvent?.Invoke();
             pv -= (int)damage;
+            onHitEvent?.Invoke();
             Debug.Log("pv perso:" + pv);
 
         }
