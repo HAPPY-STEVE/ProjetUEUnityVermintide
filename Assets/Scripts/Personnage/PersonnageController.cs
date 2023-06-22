@@ -105,7 +105,22 @@ namespace Personnage
         public void attaque()
         {
             time += Time.deltaTime;
-            StartCoroutine(routineAttaque());
+            //StartCoroutine(routineAttaque());
+            if (inAttaque == false && peutAttaquer == true)
+            {
+                inAttaque = true;
+                anim.speed = 1 * vitesseAttaque;
+                if (arme.armeProjectile == true)
+                {
+                    fireProjectile();
+                }
+
+                peutAttaquer = false;
+                anim.SetTrigger("Attack");
+                //yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+                anim.speed = 1;
+                inAttaque = false;
+            }
         }
 
         public IEnumerator routineAttaque()
