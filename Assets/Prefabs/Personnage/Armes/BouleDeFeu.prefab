@@ -63,7 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   degats: 25
   vitesseProjectile: 3
-  despawnTime: 3
+  despawnTime: 0.5
   projectileEnnemi: 0
   onCollision:
     m_PersistentCalls:

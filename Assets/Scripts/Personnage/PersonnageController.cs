@@ -57,7 +57,7 @@ namespace Personnage
             if(arme != null)
             {
                 Debug.Log(arme);
-
+                anim.runtimeAnimatorController = arme.controllerOverride; 
                 pv = arme.pv;
                 degats = arme.degats;
                 defense = arme.defense;

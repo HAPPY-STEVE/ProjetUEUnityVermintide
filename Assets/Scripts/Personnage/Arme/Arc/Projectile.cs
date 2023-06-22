@@ -45,7 +45,6 @@ namespace Armes
         public void Fire(float speed, Vector3 direction)
         {
             _rb.velocity = direction * speed;
-            StartCoroutine(despawn());
         }
 
 
