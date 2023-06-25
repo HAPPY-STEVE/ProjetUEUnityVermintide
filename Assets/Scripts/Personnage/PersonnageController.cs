@@ -56,10 +56,6 @@ namespace Personnage
             }
             if(arme != null)
             {
-                if(arme.controllerOverride != null)
-                {
-                    anim.runtimeAnimatorController = arme.controllerOverride;
-                }
                 pv = arme.pv;
                 degats = arme.degats;
                 defense = arme.defense;
@@ -67,7 +63,13 @@ namespace Personnage
                 vitesseAttaque = arme.vitesseAttaque;
                 vitesseMouvement = arme.vitesseMouvement;
                 regenPV = arme.regenPV;
-                Instantiate(arme.armePrefab, gameObject.transform.Find("PlayerCameraRoot").transform.Find("WeaponHolder").transform);
+                GameObject ar = Instantiate(arme.armePrefab, gameObject.transform.Find("PlayerCameraRoot").transform.Find("WeaponHolder").transform);
+                ar.name = ar.name.Replace("(Clone)", "");
+
+                if (arme.controllerOverride != null)
+                {
+                    anim.runtimeAnimatorController = arme.controllerOverride;
+                }
             }
 
             if (dh != null)
@@ -106,6 +108,8 @@ namespace Personnage
 
         public void attaque()
         {
+
+            anim.Update(0.0f);
             time += Time.deltaTime;
             //StartCoroutine(routineAttaque());
             if (inAttaque == false && peutAttaquer == true)

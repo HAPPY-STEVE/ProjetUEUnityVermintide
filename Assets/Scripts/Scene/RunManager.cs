@@ -19,7 +19,7 @@ public class RunManager : MonoBehaviour
     [Header("Ennemis à tuer pour clear")]
     public int limiteEnnemis = 100;
     [Header("Recompense fin niveau")]
-    public float recompenseFinRun = 0;
+    public int recompenseFinRun = 200;
     private bool runStart = false;
     [HeaderAttribute("UI")]
     public GameObject endUIGameObject;
@@ -56,7 +56,7 @@ public class RunManager : MonoBehaviour
     /// </summary>
     void endOfRun()
     {
-        dc.endOfRun(tempsRun); 
+        dc.endOfRun(tempsRun, recompenseFinRun); 
         runStart = false;
 
         PersonnageController pc = FindObjectOfType<PersonnageController>();
@@ -81,7 +81,7 @@ public class RunManager : MonoBehaviour
     public void gameOver()
     {
 
-        dc.endOfRun(tempsRun);
+        dc.endOfRun(tempsRun, 0);
         runStart = false;
 
         PersonnageController pc = FindObjectOfType<PersonnageController>();

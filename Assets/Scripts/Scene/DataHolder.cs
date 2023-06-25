@@ -55,7 +55,7 @@ namespace Save
             armechoisi = arme;
         }
 
-        public void endOfRun(float t)
+        public void endOfRun(float t, int recompense)
         {
             tempsRun += t;
             monnaie += 250; 
