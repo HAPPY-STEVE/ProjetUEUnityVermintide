@@ -4,6 +4,9 @@ using UnityEngine.Events;
 
 namespace UI.Tween
 {
+    /// <summary>
+    /// Animation UI faisant glisser l'element d'en dehors de l'écran vers l'intérieur. 
+    /// </summary>
     public class SlidingTween : TweenContainer
     {
         [Header("Ease de l'animation ")]

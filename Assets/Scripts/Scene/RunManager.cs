@@ -1,6 +1,7 @@
 using Ennemis;
 using Personnage;
 using Save;
+using Scenes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,14 @@ using UnityEngine;
 /// </summary>
 public class RunManager : MonoBehaviour
 {
+    [Header("Scene Reference")]
+    public SceneReference sceneReference;
     [Header("Ne pas modifier, seulement pour debug")]
     public float tempsRun = 0f;
     [Header("Ennemis à tuer pour clear")]
     public int limiteEnnemis = 100;
+    [Header("Recompense fin niveau")]
+    public float recompenseFinRun = 0;
     private bool runStart = false;
     [HeaderAttribute("UI")]
     public GameObject endUIGameObject;
@@ -26,6 +31,7 @@ public class RunManager : MonoBehaviour
         dc = FindObjectOfType<DataHolder>();
         runStart = true;
         dc.nbEnnemisTues = 0;
+        dc.currentMapScene = sceneReference;
 
         endUIGameObject.SetActive(false);
         gameOverUIGameObject.SetActive(false);

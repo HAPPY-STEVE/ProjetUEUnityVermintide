@@ -11,6 +11,12 @@ namespace Scenes
 		Fade,
 		None
     }
+
+
+	/// <summary>
+	/// Utiliser pour se déplacer de scène en scène.
+	/// Possede une option de transition.
+	/// </summary>
     public class LevelLoader: MonoBehaviour
     {
 		[Header("Type de transition")]
@@ -20,7 +26,10 @@ namespace Scenes
 		public Animator transition;
 
 		[Header("Event")]
-		public UnityEvent onTransition; 
+		public UnityEvent onTransition;
+
+		[Header("Reference scene pour game maps")]
+		public SceneReference sceneref; 
 		public void QuitApplication()
         {
 			Application.Quit();
@@ -56,6 +65,18 @@ namespace Scenes
 			LoadScene(s.name);
 		}
 
+		public void loadNextMap(SceneReference s)
+        {
+			if(s != null)
+            {
+				StartCoroutine(LevelLoading(s.sceneSuivante.name));
+
+			} else
+            {
+				Debug.LogError("Scene non presente");
+				StartCoroutine(LevelLoading("MainMenu"));
+            }
+		}
         public static void LoadScene(string s, bool additive = false, bool setActive = false)
 		{
 			if (s == null)
@@ -104,7 +125,6 @@ namespace Scenes
 
 		public IEnumerator LevelLoading(string scenename)
 		{
-			Debug.Log("test");
 			onTransition.Invoke();
 			transition.SetBool("SceneChangeEnd", false);
 			transition.SetBool("SceneChangeBegin", true);

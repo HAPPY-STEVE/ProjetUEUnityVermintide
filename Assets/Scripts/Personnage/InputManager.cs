@@ -22,10 +22,6 @@ public class InputManager : MonoBehaviour
         inputActionMap.FindActionMap("Player").Disable();
         inputActionMap.FindActionMap("UI").Disable();
         inputActionMap.FindActionMap(actionMap).Enable();
-        foreach (InputActionMap a in inputActionMap.actionMaps)
-        {
-            Debug.Log(a.name + " " + a.enabled);
-        }
     }
 
     public void setFirstPersonController(bool value)

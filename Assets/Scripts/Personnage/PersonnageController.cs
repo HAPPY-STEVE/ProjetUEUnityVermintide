@@ -56,8 +56,10 @@ namespace Personnage
             }
             if(arme != null)
             {
-                Debug.Log(arme);
-                anim.runtimeAnimatorController = arme.controllerOverride; 
+                if(arme.controllerOverride != null)
+                {
+                    anim.runtimeAnimatorController = arme.controllerOverride;
+                }
                 pv = arme.pv;
                 degats = arme.degats;
                 defense = arme.defense;
@@ -179,7 +181,7 @@ namespace Personnage
         /// <summary>
         /// Traite la liste d'upgrades passés par DataHolder. 
         /// </summary>
-        /// <param name="upgrades"></param>
+        /// <param name="upgrades">Liste d'upgrades.</param>
         public void ajoutUpgrades(List<Upgrade.UpgradeStore> upgrades)
         {
             for (int i = 0; i < upgrades.Count; i++)

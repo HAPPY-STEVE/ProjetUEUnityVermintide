@@ -6,6 +6,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
+namespace Personnage
+{
+
 [RequireComponent(typeof(PersonnageController))]
 public class PersonnageEffectController : MonoBehaviour
 {
@@ -35,10 +38,6 @@ public class PersonnageEffectController : MonoBehaviour
         int fullscreenIntensity = Shader.PropertyToID("_FullscreenIntensity");
         material.SetFloat(fullscreenIntensity, 0f);
     }
-    private void OnDestroy()
-    {
-    }
-
 
     private IEnumerator hitEffect()
     {
@@ -74,5 +73,7 @@ public class PersonnageEffectController : MonoBehaviour
 
     }
 
+
+}
 
 }
