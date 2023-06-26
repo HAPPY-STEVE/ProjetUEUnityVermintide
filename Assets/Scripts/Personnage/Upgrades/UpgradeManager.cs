@@ -38,13 +38,13 @@ namespace Personnage.Upgrade
         /// La stat, et la valeur min/max possible pour l'upgrade 
         /// </summary>
         public Dictionary<Stats, Tuple<int, int>> valeursStats;
-
+        private DataHolder dh; 
 
         // Start is called before the first frame update
         void Start()
         {
             //On vide les upgrades floors quand on arrive au choix des upgrades
-            DataHolder dh = FindObjectOfType<DataHolder>();
+            dh = FindObjectOfType<DataHolder>();
             if(dh != null)
             {
                 dh.upgradesFloor = null;
@@ -88,11 +88,12 @@ namespace Personnage.Upgrade
 
         private void EndUpgrades()
         {
+            dh = FindObjectOfType<DataHolder>();
             LevelLoader levelLoader = FindObjectOfType<LevelLoader>();
             parent.GetComponent<RevealTween>().OnClose(); 
             CinemachineVirtualCamera c = (CinemachineVirtualCamera)FindObjectOfType<CinemachineBrain>().ActiveVirtualCamera;
             c.Priority = 0;
-            StartCoroutine(levelLoader.LevelLoading("MainMenu"));
+            levelLoader.loadNextMap(dh.currentMapScene);
 
         }
     }

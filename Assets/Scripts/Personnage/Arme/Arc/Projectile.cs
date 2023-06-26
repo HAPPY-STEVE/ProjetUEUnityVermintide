@@ -34,7 +34,6 @@ namespace Armes
 
         void Start()
         {
-            // Keep a note of the time the movement started.
             PersonnageController pc = FindObjectOfType<PersonnageController>();
             startTime = Time.time;
             startPos = gameObject.transform.position;

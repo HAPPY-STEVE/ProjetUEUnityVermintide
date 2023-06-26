@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using UI.Tween;
 using UnityEngine;
 using UnityEngine.UI;
+namespace Scenes
+{
 
 public class NouvellePartieSetup : MonoBehaviour
 {
@@ -54,6 +56,17 @@ public class NouvellePartieSetup : MonoBehaviour
     /// </summary>
     private void EndChoix()
     {
+        //On verifie qu'on sort pas d'une partie pour eviter l'ajout des anciennes stats
+        DataHolder dh = FindObjectOfType<DataHolder>();
+        if(dh != null)
+        {
+            dh.currentMapScene = null;
+            dh.tempsRun = 0;
+            dh.nbEnnemisTues = 0;
+        }
+
+        //Code pour transition
+
         LevelLoader levelLoader = FindObjectOfType<LevelLoader>();
         armePositionParent.GetComponent<RevealTween>().OnClose();
         CinemachineVirtualCamera c = (CinemachineVirtualCamera)FindObjectOfType<CinemachineBrain>().ActiveVirtualCamera;
@@ -61,5 +74,7 @@ public class NouvellePartieSetup : MonoBehaviour
         StartCoroutine(levelLoader.LevelLoading("Map1"));
 
     }
+
+}
 
 }

@@ -4023,7 +4023,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    maxLights: 10
+    maxLights: 3
   TrailModule:
     enabled: 1
     mode: 1

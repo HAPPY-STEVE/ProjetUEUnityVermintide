@@ -45,9 +45,11 @@ public class MyScriptEditor : Editor
         EditorGUILayout.PrefixLabel("Animator Controller Override pour l'arme");
         myScript.controllerOverride = (AnimatorOverrideController)EditorGUILayout.ObjectField(myScript.controllerOverride, typeof(AnimatorOverrideController), true);
             serializedObject.ApplyModifiedProperties();
+            EditorUtility.SetDirty(myScript);
             EditorGUILayout.PrefixLabel("Prefab arme");
         myScript.armePrefab = (GameObject)EditorGUILayout.ObjectField(myScript.armePrefab, typeof(GameObject), true);
             serializedObject.ApplyModifiedProperties();
+            EditorUtility.SetDirty(myScript);
             EditorGUILayout.PrefixLabel("PV");
         myScript.pv = EditorGUILayout.IntSlider(myScript.pv, 0, 200);
         EditorGUILayout.PrefixLabel("Degats");

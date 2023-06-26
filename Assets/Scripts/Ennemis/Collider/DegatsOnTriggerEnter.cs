@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace Ennemis
 {
-
+    /// <summary>
+    /// Effectue des dégâts à un ennemi lors d'une collision avec le trigger associe au gameObject auquel ce script est attaché.
+    /// </summary>
     [RequireComponent(typeof(Collider))]
-
     public class DegatsOnTriggerEnter : MonoBehaviour
     {
         [Header("Degats")]

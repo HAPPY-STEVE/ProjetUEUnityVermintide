@@ -18,10 +18,57 @@ namespace Personnage.Upgrade
         public Stats stat; 
         public string titreUpgrade; 
         public string texteDescriptionUpgrade; 
-        public int valeurUpgrade; 
+        public int valeurUpgrade;
+        public bool generateTexteEtDescription = false;
 
 
+        public void Start()
+        {
+            if(generateTexteEtDescription == true)
+            {
+                generationTexteEtDescription();
+                afficherUpgrade(); 
+            }
+        }
 
+        public void generationTexteEtDescription()
+        {
+            switch (stat)
+            {
+                case Stats.pv:
+                    titreUpgrade = "Points de vie";
+                    texteDescriptionUpgrade = "Augmente les points de vie.";
+                    break;
+                case Stats.degats:
+                    titreUpgrade = "Dégâts";
+                    texteDescriptionUpgrade = "Augmente les dégâts de mêlée/distance.";
+                    break;
+                case Stats.defense:
+                    titreUpgrade = "Défense";
+                    texteDescriptionUpgrade = "Augmente la défense contre tout type de dégâts.";
+                    break;
+                case Stats.magie:
+                    titreUpgrade = "Magie";
+                    texteDescriptionUpgrade = "Augmente les dégâts de magie.";
+                    break;
+                case Stats.vitesseAttaque:
+                    titreUpgrade = "Vitesse d'attaque";
+                    texteDescriptionUpgrade = "Augmente la vitesse d'attaque global.";
+                    break;
+                case Stats.vitesseMouvement:
+                    titreUpgrade = "Vitesse de mouvement";
+                    texteDescriptionUpgrade = "Augmente la vitesse de mouvement.";
+                    break;
+                case Stats.regenPV:
+                    titreUpgrade = "Régéneration de vie";
+                    texteDescriptionUpgrade = "Augmente la régénération passive de vie par seconde.";
+                    break;
+                default:
+                    titreUpgrade = "Points de vie";
+                    texteDescriptionUpgrade = "Augmente les points de vie.";
+                    break;
+            }
+        }
         public void generateRandomUpgrade(Stats statChoisi, int min, int max)
         {
             stat = statChoisi; 
@@ -82,7 +129,7 @@ namespace Personnage.Upgrade
         public void resolveUpgrade()
         {
             DataHolder dh = FindObjectOfType<DataHolder>();
-            dh.addUpgradeFloor(new UpgradeStore());
+            dh.addUpgradeFloor(new UpgradeStore(stat, titreUpgrade, texteDescriptionUpgrade, valeurUpgrade));
         }
     }
     public class UpgradeStore
@@ -91,6 +138,14 @@ namespace Personnage.Upgrade
         public string titreUpgrade;
         public string texteDescriptionUpgrade;
         public int valeurUpgrade;
+
+        public UpgradeStore(Stats s, string titre, string texte, int val)
+        {
+            stat = s;
+            titreUpgrade = titre;
+            texteDescriptionUpgrade = texte;
+            valeurUpgrade = val; 
+        }
     }
 
 }

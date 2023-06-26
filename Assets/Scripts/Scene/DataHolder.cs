@@ -1,6 +1,7 @@
 using Armes;
 using Personnage;
 using Personnage.Upgrade;
+using Scenes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +14,12 @@ namespace Save
         [Header("Valeurs pour fin de run")]
         public int nbEnnemisTues = 0;
         public float tempsRun = 0;
-        public int currentMapScene;
+        [Range(0, 10000)]
+        public float monnaie = 0;
+        /// <summary>
+        /// Donne lors du choix des upgrades pour indiquer quelle map vient d'être terminé et quelle map la suit. 
+        /// </summary>
+        public SceneReference currentMapScene;
         private PersonnageController pc;
         public Arme armechoisi; 
         /// <summary>
@@ -34,7 +40,7 @@ namespace Save
 
         public void addUpgradeFloor(UpgradeStore upgrade)
         {
-            Debug.Log(upgrade);
+            Debug.Log(upgrade.stat.ToString());
             Debug.Log(upgradesFloor);
             if(upgradesFloor == null)
             {
@@ -49,9 +55,10 @@ namespace Save
             armechoisi = arme;
         }
 
-        public void endOfRun(float t)
+        public void endOfRun(float t, int recompense)
         {
-            tempsRun += t; 
+            tempsRun += t;
+            monnaie += 250; 
         }
     }
 

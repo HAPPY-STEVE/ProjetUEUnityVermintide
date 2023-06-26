@@ -95,6 +95,7 @@ namespace Ennemis
 
         public void Init()
         {
+            mourant = false; 
             nom = referenceSO.nom;
             description = referenceSO.description;
             pv = referenceSO.pv;
@@ -166,17 +167,17 @@ namespace Ennemis
                 dc.nbEnnemisTues += 1;
                 mourant = true;
 
+                nva.speed = 0f;
+                animator.SetTrigger("Death");
+                StartCoroutine(despawn());
             }
 
-            nva.speed = 0f;
-            animator.SetTrigger("Death");
-            StartCoroutine(despawn());
-            Debug.Log("death");
         }
 
         IEnumerator despawn()
         {
-            yield return new WaitForSeconds(0.5f);
+            //On les laisse terminer leur animation et le temps de se reset
+            yield return new WaitForSeconds(2f);
             yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
             //On reinitialise les stats pour que l'objet soit réutilisable 
             Init();
