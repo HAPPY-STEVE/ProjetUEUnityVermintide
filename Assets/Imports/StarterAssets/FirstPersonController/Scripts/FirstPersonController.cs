@@ -1,5 +1,7 @@
 ﻿using Personnage;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -83,6 +85,14 @@ namespace StarterAssets
 
 		private const float _threshold = 0.01f;
 
+		//gestion des interactions
+		private GameObject highlightedObject;
+		private Material originalMaterial;
+		private bool hasAnimationTriggered = false;
+		private bool hasAnimationTriggered2 = false;
+
+		//private Animator animatorPC2;
+
 		private bool IsCurrentDeviceMouse
 		{
 			get
@@ -97,10 +107,24 @@ namespace StarterAssets
 
 		private void Awake()
 		{
+			//animatorPC2 = GetComponent<prison_cell2>();
 			// get a reference to our main camera
 			if (_mainCamera == null)
 			{
 				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+			}
+
+			// Attach EventTrigger to the interactable objects
+			GameObject[] interactableObjects = GameObject.FindGameObjectsWithTag("Interactable");
+			foreach (GameObject interactableObject in interactableObjects)
+			{
+				EventTrigger eventTrigger = interactableObject.AddComponent<EventTrigger>();
+
+				// Create PointerExit entry for removing the highlight
+				EventTrigger.Entry pointerExitEntry = new EventTrigger.Entry();
+				pointerExitEntry.eventID = EventTriggerType.PointerExit;
+				pointerExitEntry.callback.AddListener((eventData) => RemoveHighlight(interactableObject));
+				eventTrigger.triggers.Add(pointerExitEntry);
 			}
 		}
 
@@ -126,6 +150,7 @@ namespace StarterAssets
 			Move();
 			Attack();
 			Interact();
+			UpdateHighlightedObject();
 		}
 
 		private void LateUpdate()
@@ -133,26 +158,122 @@ namespace StarterAssets
 			CameraRotation();
 		}
 
-		#region inputMethods
-		private void Interact()
-        {
 
-			if (_input.interact)
+
+
+
+		#region inputMethods
+
+
+		private void Interact()
+		{
+			if (_input.interact && highlightedObject != null)
 			{
-				RaycastHit hitInfo = new RaycastHit();
-			bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), 0)), out hitInfo, interactRange);
-			if (hit)
+				if (highlightedObject.CompareTag("Interactable"))
 				{
-					GameObject hitObject = hitInfo.transform.gameObject;
-					Debug.Log(hitObject);
-					if (hitObject.GetComponent<IInteractable>() != null)
+					Debug.Log("Interacting with " + highlightedObject.name);
+
+					if (highlightedObject.name == "interrupteur1" && !hasAnimationTriggered)
 					{
-						Debug.Log("interactable");
-						hitObject.GetComponent<IInteractable>().Interact();
+						Debug.Log("Sesame ouvre toi");
+						Animator prisonCellAnimator = GameObject.Find("prison_cell").GetComponent<Animator>();
+						prisonCellAnimator.SetTrigger("open");
+						hasAnimationTriggered = true;
+					}
+
+					else if (highlightedObject.name == "interrupteur2" && !hasAnimationTriggered2)
+					{
+						Debug.Log("Sesame ouvre toi");
+						Animator prisonCellAnimator2 = GameObject.Find("prison_cell2").GetComponent<Animator>();
+						prisonCellAnimator2.SetTrigger("open");
+						hasAnimationTriggered2 = true;
+					}
+
+					else if (highlightedObject.name == "finaldoor")
+					{
+						//reussite du niveau ici
+						Debug.Log("Niveau 1 réussi");
 					}
 				}
 			}
 		}
+
+
+		private void UpdateHighlightedObject()
+		{
+			Vector2 mousePosition = Mouse.current.position.ReadValue();
+			Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+			RaycastHit hit;
+
+			if (Physics.Raycast(ray, out hit, interactRange))
+			{
+				GameObject hitObject = hit.transform.gameObject;
+
+				if (hitObject.CompareTag("Interactable"))
+				{
+					if (hitObject != highlightedObject)
+					{
+						// Remove highlight from the previously highlighted object
+						if (highlightedObject != null)
+						{
+							RemoveHighlight(highlightedObject);
+						}
+
+						// Add highlight to the new highlighted object
+						AddHighlight(hitObject);
+						highlightedObject = hitObject;
+					}
+				}
+				else
+				{
+					// Remove highlight from the previously highlighted object
+					if (highlightedObject != null)
+					{
+						RemoveHighlight(highlightedObject);
+						highlightedObject = null;
+					}
+				}
+			}
+			else
+			{
+				// Remove highlight from the previously highlighted object
+				if (highlightedObject != null)
+				{
+					RemoveHighlight(highlightedObject);
+					highlightedObject = null;
+				}
+			}
+		}
+
+		private void AddHighlight(GameObject interactableObject)
+		{
+			Renderer renderer = interactableObject.GetComponent<Renderer>();
+			if (renderer != null)
+			{
+				// Store the original material of the object
+				originalMaterial = renderer.material;
+
+				// Create a new material instance for the highlight effect
+				Material highlightMaterial = new Material(originalMaterial);
+				highlightMaterial.color = Color.green;
+
+				// Assign the highlight material to the object's renderer
+				renderer.material = highlightMaterial;
+			}
+		}
+
+		private void RemoveHighlight(GameObject interactableObject)
+		{
+			Renderer renderer = interactableObject.GetComponent<Renderer>();
+			if (renderer != null)
+			{
+				// Restore the original material of the object
+				renderer.material = originalMaterial;
+			}
+		}
+
+
+
 
 		private void Attack()
 		{

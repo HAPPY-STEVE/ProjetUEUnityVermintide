@@ -11,6 +11,7 @@ TagManager:
   - Melee
   - Ranged
   - HeavyMelee
+  - Interactable
   layers:
   - Default
   - TransparentFX
