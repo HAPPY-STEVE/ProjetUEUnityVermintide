@@ -49,8 +49,12 @@ public class RunManager : MonoBehaviour
         {
             tempsRun += Time.deltaTime;
         }
-
-        if((killWinBool == false && endOfLevel == true)||(dc.nbEnnemisTues >= limiteEnnemis & runStart == true && killWinBool == true))
+        Debug.Log(endOfLevel);
+        if((killWinBool == false && endOfLevel == true))
+        {
+            endOfRun();
+        }
+        if((dc.nbEnnemisTues >= limiteEnnemis & runStart == true && killWinBool == true))
         {
             endOfRun(); 
         }

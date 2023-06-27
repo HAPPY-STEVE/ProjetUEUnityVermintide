@@ -10916,8 +10916,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cac61ca762db26248b1ee7e418eb92f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0
-  angle: 0
+  radius: 18.9
+  angle: 360
   playerRef: {fileID: 0}
   targetMask:
     serializedVersion: 2

@@ -87,7 +87,7 @@ namespace UI
             {
                 timer += Time.deltaTime;
                 displayValue = Mathf.Lerp(startValue, endValue, timer / endTimer);
-                bar.GetComponent<Image>().color = Color.Lerp(bar.GetComponent<Image>().color, endColor, timer - endTimer);
+                bar.GetComponent<Image>().color = Color.Lerp(bar.GetComponent<Image>().color, endColor, timer/ endTimer);
                 bar.GetComponent<Image>().fillAmount = displayValue;
 
                 yield return null;

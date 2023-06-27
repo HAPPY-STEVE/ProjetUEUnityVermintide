@@ -174,6 +174,8 @@ namespace Personnage
 
         public void onDeath()
         {
+            GetComponent<PersonnageEffectController>().Reset();
+
             RunManager rm = FindObjectOfType<RunManager>();
             if(rm != null)
             {

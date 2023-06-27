@@ -169,6 +169,11 @@ namespace StarterAssets
 		{
 			if (_input.interact && highlightedObject != null)
 			{
+                if (highlightedObject.GetComponent<IInteractable>() != null)
+                {
+					highlightedObject.GetComponent<IInteractable>().Interact(); 
+                }
+
 				if (highlightedObject.CompareTag("Interactable"))
 				{
 					Debug.Log("Interacting with " + highlightedObject.name);

@@ -32,14 +32,24 @@ public class PersonnageEffectController : MonoBehaviour
     {
         pc = GetComponent<PersonnageController>();
         pc.onHitEvent.AddListener(() => { StopAllCoroutines();  StartCoroutine(hitEffect()); });
-        ScriptableRendererFeature feature = rendererData.rendererFeatures.Where((f) => f.name == "BlitHit").FirstOrDefault();
+            pc.onHitEvent.AddListener(() => { StopAllCoroutines(); StartCoroutine(hitEffect()); });
+            ScriptableRendererFeature feature = rendererData.rendererFeatures.Where((f) => f.name == "BlitHit").FirstOrDefault();
         var blitFeature = feature as Blit;
         var material = blitFeature.blitPass.blitMaterial;
         int fullscreenIntensity = Shader.PropertyToID("_FullscreenIntensity");
         material.SetFloat(fullscreenIntensity, 0f);
     }
 
-    private IEnumerator hitEffect()
+        public void Reset()
+        {
+
+            ScriptableRendererFeature feature = rendererData.rendererFeatures.Where((f) => f.name == "BlitHit").FirstOrDefault();
+            var blitFeature = feature as Blit;
+            var material = blitFeature.blitPass.blitMaterial;
+            int fullscreenIntensity = Shader.PropertyToID("_FullscreenIntensity");
+            material.SetFloat(fullscreenIntensity, 0f);
+        }
+        private IEnumerator hitEffect()
     {
             int fullscreenIntensity = Shader.PropertyToID("_FullscreenIntensity");
             Debug.Log("hit effect");
