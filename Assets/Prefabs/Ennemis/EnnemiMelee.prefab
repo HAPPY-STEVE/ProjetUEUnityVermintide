@@ -2497,6 +2497,7 @@ MonoBehaviour:
   porteeAttaque: 0
   pv: 0
   delaiMinAttaqueDistance: 3
+  peutAttaquer: 0
   degatAttaque: 0
   colliderHit: {fileID: 7028205524811649701}
   onMort:
@@ -2526,7 +2527,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 3
 --- !u!114 &1478039398902019721
 MonoBehaviour:
   m_ObjectHideFlags: 0

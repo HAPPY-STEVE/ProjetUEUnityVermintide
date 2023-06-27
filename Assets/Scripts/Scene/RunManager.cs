@@ -20,11 +20,16 @@ public class RunManager : MonoBehaviour
     public int limiteEnnemis = 100;
     [Header("Recompense fin niveau")]
     public int recompenseFinRun = 200;
+    [Header("Est-ce qu'il faut tuer des ennemis ou atteindre un objectif ?")]
+    public bool killWinBool = true;
+    [HideInInspector]
+    public bool endOfLevel = false; 
     private bool runStart = false;
     [HeaderAttribute("UI")]
     public GameObject endUIGameObject;
     public GameObject gameOverUIGameObject;
-    private DataHolder dc; 
+    private DataHolder dc;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,12 +50,16 @@ public class RunManager : MonoBehaviour
             tempsRun += Time.deltaTime;
         }
 
-        if(dc.nbEnnemisTues >= limiteEnnemis & runStart == true)
+        if((killWinBool == false && endOfLevel == true)||(dc.nbEnnemisTues >= limiteEnnemis & runStart == true && killWinBool == true))
         {
             endOfRun(); 
         }
     }
 
+    public void setEndOfLevel(bool b)
+    {
+        endOfLevel = b;
+    }
     /// <summary>
     /// Appele quand on a termine une map.
     /// </summary>
