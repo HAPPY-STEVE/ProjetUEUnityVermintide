@@ -138,13 +138,13 @@ namespace Ennemis
 
         IEnumerator Attaque()
         {
-            if (colliderHit != null)
+            if (colliderHit != null && mourant == false)
             {
                 colliderHit.enabled = true;
             }
             yield return new WaitForSeconds(0.1f);
             animator.SetTrigger("Attack");
-            if (referenceSO.projectilePrefab != null)
+            if (referenceSO.projectilePrefab != null && mourant == false)
             {
                 Instantiate(referenceSO.projectilePrefab, gameObject.transform);
             }
@@ -162,8 +162,11 @@ namespace Ennemis
         public void OnMort()
         {
             DataHolder dc = FindObjectOfType<DataHolder>();
+
             if(dc != null && mourant == false)
             {
+                if(colliderHit !=null)
+                    colliderHit.enabled = false; 
                 dc.nbEnnemisTues += 1;
                 mourant = true;
 

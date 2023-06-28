@@ -31,8 +31,8 @@ public class PersonnageEffectController : MonoBehaviour
     private void Start()
     {
         pc = GetComponent<PersonnageController>();
+            //On enregistre les events pour les hits au niveau du personnageController
         pc.onHitEvent.AddListener(() => { StopAllCoroutines();  StartCoroutine(hitEffect()); });
-            pc.onHitEvent.AddListener(() => { StopAllCoroutines(); StartCoroutine(hitEffect()); });
             ScriptableRendererFeature feature = rendererData.rendererFeatures.Where((f) => f.name == "BlitHit").FirstOrDefault();
         var blitFeature = feature as Blit;
         var material = blitFeature.blitPass.blitMaterial;

@@ -50,6 +50,7 @@ namespace UI
                 pvMax = pc.arme.pv;
                 //On ajoute à l'evenement de hit du joueur pour l'appeler à chaque dégât reçu. 
                 pc.onHitEvent.AddListener(() => updatePv());
+                pc.onHealEvent.AddListener(() => updatePvHeal());
             }
 
         }
@@ -70,11 +71,33 @@ namespace UI
 
             } else
             {
-                Debug.Log("test");
                 StopAllCoroutines();
                 animBar = StartCoroutine(AnimationBar(bar.GetComponent<Image>().fillAmount, f));
             }
         }
+
+        void updatePvHeal()
+        {
+            float percent = ((float)pc.Pv / (float)pvMax) * 100;
+            if (percent < 0 || pc.Pv < 0)
+            {
+                percent = 0;
+            }
+            Debug.Log(pc.Pv);
+            text.text = percent.ToString();
+            float f = percent / 100;
+            if (animBar == null)
+            {
+                animBar = StartCoroutine(AnimationBarHeal(bar.GetComponent<Image>().fillAmount, f));
+
+            }
+            else
+            {
+                StopAllCoroutines();
+                animBar = StartCoroutine(AnimationBarHeal(bar.GetComponent<Image>().fillAmount, f));
+            }
+        }
+
 
         IEnumerator AnimationBar(float startValue, float endValue)
         {
@@ -93,6 +116,25 @@ namespace UI
                 yield return null;
             }
         }
+
+        IEnumerator AnimationBarHeal(float startValue, float endValue)
+        {
+            float displayValue = 0f; // value during animation
+            float timer = 0f;
+            float endTimer = tempsAnim;
+            Color endColor = Color.green;
+            bar.GetComponent<Image>().color = Color.white;
+            while (timer <= endTimer)
+            {
+                timer += Time.deltaTime;
+                displayValue = Mathf.Lerp(startValue, endValue, timer / endTimer);
+                bar.GetComponent<Image>().color = Color.Lerp(bar.GetComponent<Image>().color, endColor, timer / endTimer);
+                bar.GetComponent<Image>().fillAmount = displayValue;
+
+                yield return null;
+            }
+        }
+
 
         public static float EaseOut(float t)
         {

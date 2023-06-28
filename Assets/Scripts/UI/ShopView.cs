@@ -21,6 +21,7 @@ namespace UI
         public TextMeshProUGUI vitesseAttaque;
         public TextMeshProUGUI vitesseMouvement;
         public TextMeshProUGUI regenPV;
+        public TextMeshProUGUI or;
         [Header("Variables")]
         public int nbUpgradePv = 0;
         public int nbUpgradeDegats = 0;
@@ -33,13 +34,15 @@ namespace UI
         void Start()
         {
             dh = FindObjectOfType<DataHolder>(); 
+
         }
 
         // Update is called once per frame
         void Update()
         {
             calculUpgradesNb();
-            updateTextUpgrades(); 
+            updateTextUpgrades();
+            or.text = dh.monnaie.ToString(); 
         }
 
         void calculUpgradesNb()

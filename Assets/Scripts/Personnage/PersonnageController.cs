@@ -27,14 +27,18 @@ namespace Personnage
         public float vitesseAttaque = 0;
         public float vitesseMouvement = 0;
         public float regenPV = 0;
-        private Animator anim;
         private bool inAttaque, peutAttaquer;
-        private CinemachineVirtualCamera cinemachine;
+        /// <summary>
+        /// Le delai minimum entre les attaques, decide par la vitesse d'attaque et le delaiMin fixe
+        /// </summary>
         private float delaiMinAttaqueDistance = 0.5f;
         private float time = 0f;
         [Header("Evenements")]
         public UnityEvent onHitEvent; 
+        public UnityEvent onHealEvent;
         public int Pv { get => pv; set => pv = value; }
+        private Animator anim;
+        private CinemachineVirtualCamera cinemachine;
 
 
         // Start is called before the first frame update
@@ -63,15 +67,29 @@ namespace Personnage
                 vitesseAttaque = arme.vitesseAttaque;
                 vitesseMouvement = arme.vitesseMouvement;
                 regenPV = arme.regenPV;
+
+                //On applique ce qu'on recupere des donnees de l'arme 
+                delaiMinAttaqueDistance = (delaiMinAttaqueDistance * (1 - vitesseAttaque / 10));
+
+                //Vitesse mouvement
+                GetComponent<StarterAssets.FirstPersonController>().MoveSpeed *= vitesseMouvement;
+                GetComponent<StarterAssets.FirstPersonController>().SprintSpeed *= vitesseMouvement;
+
+                //On renomme l'arme pour éviter des problèmes d'animations 
                 GameObject ar = Instantiate(arme.armePrefab, gameObject.transform.Find("PlayerCameraRoot").transform.Find("WeaponHolder").transform);
                 ar.name = ar.name.Replace("(Clone)", "");
 
+                //Si l'arme possède un controller, on remplace par le controller donnee 
                 if (arme.controllerOverride != null)
                 {
                     anim.runtimeAnimatorController = arme.controllerOverride;
                 }
+
+                //regeneration de vie 
+                InvokeRepeating("regenPVTick", 1f, 1f);
             }
 
+            //Si on possede des upgrades, on les ajoute aux stats presentes
             if (dh != null)
             {
                 if (dh.upgradesFloor.Count > 0)
@@ -80,18 +98,23 @@ namespace Personnage
                 }
             }
 
-            delaiMinAttaqueDistance = (delaiMinAttaqueDistance * (1 - vitesseAttaque / 10));
-                cinemachine = (CinemachineVirtualCamera)CinemachineCore.Instance.GetActiveBrain(0).ActiveVirtualCamera;
+            cinemachine = (CinemachineVirtualCamera)CinemachineCore.Instance.GetActiveBrain(0).ActiveVirtualCamera;
+
+
         }
 
         // Update is called once per frame
         void Update()
         {
-            if(pv == 0)
+            //Mort du personnage 
+            if(pv <= 0)
             {
+                pv = 0; 
                 onDeath();
+                CancelInvoke();
             }
 
+            //Boucle pour l'attaque 
             if(peutAttaquer == false)
             {
 
@@ -104,8 +127,63 @@ namespace Personnage
                 }
             }
 
+
         }
 
+        #region Stats
+        /// <summary>
+        /// Utilise chaque seconde pour regenerer les PV avec la variable regenPV. 
+        /// </summary>
+        void regenPVTick()
+        {
+            if(pv != 0 && pv < arme.pv)
+            {
+                pv += (int)regenPV;
+                onHealEvent?.Invoke();
+            }
+
+        }
+
+        /// <summary>
+        /// Traite la liste d'upgrades passés par DataHolder pour multiplier les stats présentes. 
+        /// </summary>
+        /// <param name="upgrades">Liste d'upgrades.</param>
+        public void ajoutUpgrades(List<Upgrade.UpgradeStore> upgrades)
+        {
+            for (int i = 0; i < upgrades.Count; i++)
+            {
+                switch (upgrades[i].stat)
+                {
+                    case Stats.pv:
+                        pv *= upgrades[i].valeurUpgrade;
+                        break;
+                    case Stats.degats:
+                        degats *= upgrades[i].valeurUpgrade;
+                        break;
+                    case Stats.defense:
+                        defense *= upgrades[i].valeurUpgrade;
+                        break;
+                    case Stats.magie:
+                        magie *= upgrades[i].valeurUpgrade;
+                        break;
+                    case Stats.vitesseAttaque:
+                        vitesseAttaque *= upgrades[i].valeurUpgrade;
+                        break;
+                    case Stats.vitesseMouvement:
+                        vitesseMouvement *= upgrades[i].valeurUpgrade;
+                        break;
+                    case Stats.regenPV:
+                        regenPV *= upgrades[i].valeurUpgrade;
+                        break;
+                    default:
+                        regenPV *= upgrades[i].valeurUpgrade;
+                        break;
+                }
+            }
+
+        }
+        #endregion
+        #region Attaque
         public void attaque()
         {
 
@@ -124,7 +202,6 @@ namespace Personnage
                 peutAttaquer = false;
                 anim.SetTrigger("Attack");
                 //yield return new WaitWhile(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
-                anim.speed = 1;
                 inAttaque = false;
             }
         }
@@ -163,7 +240,9 @@ namespace Personnage
                 projectile.GetComponent<Projectile>().Fire(10 * arme.vitesseAttaque, Camera.main.transform.forward * vitesseAttaque);
             }
         }
+        #endregion
 
+        #region Events
         public void onHit(float damage)
         {
             pv -= (int)damage;
@@ -183,45 +262,8 @@ namespace Personnage
 
             }
         }
+        #endregion
 
-        /// <summary>
-        /// Traite la liste d'upgrades passés par DataHolder. 
-        /// </summary>
-        /// <param name="upgrades">Liste d'upgrades.</param>
-        public void ajoutUpgrades(List<Upgrade.UpgradeStore> upgrades)
-        {
-            for (int i = 0; i < upgrades.Count; i++)
-            {
-                switch (upgrades[i].stat)
-                {
-                    case Stats.pv:
-                        pv *= upgrades[i].valeurUpgrade; 
-                        break;
-                    case Stats.degats:
-                        degats *= upgrades[i].valeurUpgrade;
-                        break;
-                    case Stats.defense:
-                        defense *= upgrades[i].valeurUpgrade;
-                        break;
-                    case Stats.magie:
-                        magie *= upgrades[i].valeurUpgrade;
-                        break;
-                    case Stats.vitesseAttaque:
-                        vitesseAttaque *= upgrades[i].valeurUpgrade;
-                        break;
-                    case Stats.vitesseMouvement:
-                        vitesseMouvement *= upgrades[i].valeurUpgrade;
-                        break;
-                    case Stats.regenPV:
-                        regenPV *= upgrades[i].valeurUpgrade;
-                        break;
-                    default:
-                        regenPV *= upgrades[i].valeurUpgrade;
-                        break;
-                }
-            }
-            
-        }
 
     }
 }

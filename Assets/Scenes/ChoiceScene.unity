@@ -22275,7 +22275,7 @@ MonoBehaviour:
   onTransition:
     m_PersistentCalls:
       m_Calls: []
-  sceneref: {fileID: 0}
+  sceneref: {fileID: 11400000, guid: 8a0a0d54138997e429a17d6c4ca21010, type: 2}
 --- !u!4 &1546710823
 Transform:
   m_ObjectHideFlags: 0

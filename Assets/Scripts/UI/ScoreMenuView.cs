@@ -8,6 +8,9 @@ namespace UI
 {
     public class ScoreMenuView : MonoBehaviour
     {
+        [TextArea]
+        public string objective; 
+        public TextMeshProUGUI objectiveText;
         public TextMeshProUGUI tempsText;
         public TextMeshProUGUI scoreText;
         public float tempsRun;
@@ -19,6 +22,11 @@ namespace UI
 
             dc = FindObjectOfType<DataHolder>();
             rm = FindObjectOfType<RunManager>(); 
+
+            if(objective != null)
+            {
+                objectiveText.text = objective; 
+            }
         }
 
         // Update is called once per frame

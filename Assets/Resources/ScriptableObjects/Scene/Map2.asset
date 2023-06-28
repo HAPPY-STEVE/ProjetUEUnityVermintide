@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6e2becb1309ce04ba14c2a0ad24e028, type: 3}
   m_Name: Map2
   m_EditorClassIdentifier: 
-  scenePrecedente: {fileID: 102900000, guid: 95130b7cd0a86344b95101d82cc3653b, type: 3}
-  sceneSuivante: {fileID: 102900000, guid: c4bd894648beb474ca091b14a627dcf7, type: 3}
+  scenePrecedente: Map1
+  sceneSuivante: MainMenu

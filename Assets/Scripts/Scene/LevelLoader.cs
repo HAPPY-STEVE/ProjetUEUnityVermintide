@@ -69,7 +69,7 @@ namespace Scenes
         {
 			if(s != null)
             {
-				StartCoroutine(LevelLoading(s.sceneSuivante.name));
+				StartCoroutine(LevelLoading(s.sceneSuivante));
 
 			} else
             {

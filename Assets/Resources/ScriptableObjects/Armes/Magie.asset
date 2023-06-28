@@ -16,7 +16,7 @@ MonoBehaviour:
   controllerOverride: {fileID: 22100000, guid: bb7446119ed38dd4388699caf4d86710, type: 2}
   armePrefab: {fileID: 4935764233736954185, guid: d38b6897a57dbef41a16968ff8108a4d, type: 3}
   pv: 75
-  degats: 20
+  degats: 35
   defense: 2
   magie: 10
   vitesseAttaque: 1

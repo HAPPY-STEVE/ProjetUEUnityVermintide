@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7496695829733341806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7496695829733341802}
+  - component: {fileID: 7496695829733341805}
+  - component: {fileID: 7496695829733341803}
+  - component: {fileID: 7496695829733341804}
+  m_Layer: 0
+  m_Name: SceneManager 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7496695829733341802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7496695829733341806}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.0791748, y: 1.1731269, z: 1.9718621}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7496695829733341805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7496695829733341806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e3b52ecc0314e4d9689c7fbe778139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tr: 0
+  timeTransition: 0
+  transition: {fileID: 0}
+  onTransition:
+    m_PersistentCalls:
+      m_Calls: []
+  sceneref: {fileID: 11400000, guid: 8a0a0d54138997e429a17d6c4ca21010, type: 2}
+--- !u!114 &7496695829733341803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7496695829733341806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e08210a4f039434085dbf479b5553ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objective: Aller jusqu'au bout du niveau
+  objectiveText: {fileID: 0}
+  tempsText: {fileID: 0}
+  scoreText: {fileID: 0}
+  tempsRun: 0
+  score: 0
+--- !u!114 &7496695829733341804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7496695829733341806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 195f42765f50835499bbfc381a46d2e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneReference: {fileID: 11400000, guid: 8a0a0d54138997e429a17d6c4ca21010, type: 2}
+  tempsRun: 0
+  limiteEnnemis: 1
+  recompenseFinRun: 0
+  killWinBool: 0
+  endOfLevel: 0
+  endUIGameObject: {fileID: 0}
+  gameOverUIGameObject: {fileID: 0}

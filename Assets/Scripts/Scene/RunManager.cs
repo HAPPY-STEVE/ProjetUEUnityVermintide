@@ -49,7 +49,6 @@ public class RunManager : MonoBehaviour
         {
             tempsRun += Time.deltaTime;
         }
-        Debug.Log(endOfLevel);
         if((killWinBool == false && endOfLevel == true))
         {
             endOfRun();
@@ -64,31 +63,40 @@ public class RunManager : MonoBehaviour
     {
         endOfLevel = b;
     }
+
     /// <summary>
     /// Appele quand on a termine une map.
     /// </summary>
     void endOfRun()
     {
-        dc.endOfRun(tempsRun, recompenseFinRun); 
+        if(runStart == true)
+        {
+            dc.endOfRun(tempsRun, recompenseFinRun);
+
+        }
         runStart = false;
 
+        FindObjectOfType<InputManager>().ToggleActionMap("UI");
+        Cursor.lockState = CursorLockMode.Confined;
+        endUIGameObject.SetActive(true);
         PersonnageController pc = FindObjectOfType<PersonnageController>();
         List <Spawner> spawners = FindObjectsOfType<Spawner>().ToList();
-        List <EnnemiController> ec = FindObjectsOfType<EnnemiController>().ToList();
 
 
         foreach(Spawner s in spawners)
         {
             s.enabled = false; 
         }
+
+        List<EnnemiController> ec = FindObjectsOfType<EnnemiController>().ToList();
         foreach (EnnemiController e in ec)
         {
-            e.OnMort();
+            if(e != null)
+            {
+                e.OnMort();
+            }
         }
 
-        FindObjectOfType<InputManager>().ToggleActionMap("UI");
-        Cursor.lockState = CursorLockMode.Confined; 
-        endUIGameObject.SetActive(true);
     }
 
     public void gameOver()

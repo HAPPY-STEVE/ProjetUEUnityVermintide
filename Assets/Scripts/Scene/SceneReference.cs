@@ -13,8 +13,8 @@ namespace Scenes
     /// </summary>
     public class SceneReference : ScriptableObject
     {
-        public Object scenePrecedente;
-        public Object sceneSuivante;
+        public string scenePrecedente;
+        public string sceneSuivante;
     }
 
 }

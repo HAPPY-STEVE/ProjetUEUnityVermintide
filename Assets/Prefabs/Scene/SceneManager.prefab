@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3789084054669536510}
-  - component: {fileID: 3789084054669536511}
   - component: {fileID: 3789084054805493616}
   m_Layer: 0
   m_Name: SceneManager
@@ -33,24 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3789084054669536511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3789084054669536481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51e3b52ecc0314e4d9689c7fbe778139, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tr: 0
-  timeTransition: 0
-  transition: {fileID: 0}
-  onTransition:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &3789084054805493616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,4 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nbEnnemisTues: 0
   tempsRun: 0
-  upgradesFloor: []
+  monnaie: 0
+  currentMapScene: {fileID: 0}
+  armechoisi: {fileID: 0}

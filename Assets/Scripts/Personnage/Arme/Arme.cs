@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 namespace Armes
 {
@@ -26,8 +25,8 @@ public class Arme : ScriptableObject
     public bool armeProjectile;
     public GameObject projectilePrefab;
 }
-
-[CustomEditor(typeof(Arme))]
+#if UNITY_EDITOR
+    [CustomEditor(typeof(Arme))]
 public class MyScriptEditor : Editor
 {
     public bool displaysExpanded;
@@ -81,5 +80,5 @@ public class MyScriptEditor : Editor
     }
 
 }
-
+#endif
 }

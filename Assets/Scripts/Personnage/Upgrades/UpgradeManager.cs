@@ -52,13 +52,13 @@ namespace Personnage.Upgrade
 
             valeursStats = new Dictionary<Stats, Tuple<int, int>>()
             {
-            { Stats.pv, new Tuple<int, int>( 9, 11)},
-            { Stats.degats, new Tuple<int, int>( 9, 11)},
-            { Stats.defense, new Tuple<int, int>( 9, 11)},
-            { Stats.magie, new Tuple<int, int>( 9, 11)},
-            { Stats.vitesseAttaque, new Tuple<int, int>( 9, 11)},
-            { Stats.vitesseMouvement, new Tuple<int, int>( 9, 11)},
-            { Stats.regenPV, new Tuple<int, int>( 9, 11)},
+            { Stats.pv, new Tuple<int, int>( 2, 3)},
+            { Stats.degats, new Tuple<int, int>( 2, 3)},
+            { Stats.defense, new Tuple<int, int>( 2, 3)},
+            { Stats.magie, new Tuple<int, int>( 2, 3)},
+            { Stats.vitesseAttaque, new Tuple<int, int>( 2, 3)},
+            { Stats.vitesseMouvement, new Tuple<int, int>( 2, 3)},
+            { Stats.regenPV, new Tuple<int, int>( 2, 3)},
             };
 
             StartCoroutine(InstantiateUpgrades());
