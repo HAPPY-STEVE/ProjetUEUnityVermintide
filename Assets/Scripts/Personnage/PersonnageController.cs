@@ -155,28 +155,28 @@ namespace Personnage
                 switch (upgrades[i].stat)
                 {
                     case Stats.pv:
-                        pv *= upgrades[i].valeurUpgrade;
+                        pv *= upgrades[i].valeurUpgrade / 100;
                         break;
                     case Stats.degats:
-                        degats *= upgrades[i].valeurUpgrade;
+                        degats *= upgrades[i].valeurUpgrade / 100;
                         break;
                     case Stats.defense:
-                        defense *= upgrades[i].valeurUpgrade;
+                        defense *= upgrades[i].valeurUpgrade / 100;
                         break;
                     case Stats.magie:
-                        magie *= upgrades[i].valeurUpgrade;
+                        magie *= upgrades[i].valeurUpgrade / 100;
                         break;
                     case Stats.vitesseAttaque:
-                        vitesseAttaque *= upgrades[i].valeurUpgrade;
+                        vitesseAttaque *= upgrades[i].valeurUpgrade / 100;
                         break;
                     case Stats.vitesseMouvement:
-                        vitesseMouvement *= upgrades[i].valeurUpgrade;
+                        vitesseMouvement *= upgrades[i].valeurUpgrade / 100;
                         break;
                     case Stats.regenPV:
-                        regenPV *= upgrades[i].valeurUpgrade;
+                        regenPV *= upgrades[i].valeurUpgrade / 100;
                         break;
                     default:
-                        regenPV *= upgrades[i].valeurUpgrade;
+                        regenPV *= upgrades[i].valeurUpgrade / 100;
                         break;
                 }
             }
